@@ -1,0 +1,18 @@
+[package]
+name = "rust-html-doc-parse"
+version = "0.1.0"
+edition = "2021"
+authors = ["Julian Büttner"]
+readme = "README.md"
+
+[lib]
+name = "rust_html_doc_parse"
+crate-type = ["lib"]
+
+[dependencies]
+serde = { version = "1.0", features = ["derive"] }
+html-escape = "0.2.13"
+scraper = "0.14.0"
+ego-tree = "0.6.2"
+minify-html = "0.10"
+derive_builder = "0.12.0"
