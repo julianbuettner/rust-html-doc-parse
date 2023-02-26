@@ -1,5 +1,6 @@
 use crate::Language;
 use serde::{Deserialize, Serialize};
+use std::fmt;
 
 /// Content is basically the abstraction
 /// of a markdown page.
@@ -8,7 +9,7 @@ use serde::{Deserialize, Serialize};
 /// Crate documentation is written using markdown,
 /// so it should be representable as such when parsed.
 
-#[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize, Default)]
+#[derive(Clone, PartialEq, Eq, Serialize, Deserialize, Default)]
 pub struct TextStyle {
     bold: Option<bool>,
     code: Option<bool>, // inline code, like `markdown`
@@ -17,6 +18,37 @@ pub struct TextStyle {
     underline: Option<bool>,
     foreground_rgb: Option<(u8, u8, u8)>,
     background_rgb: Option<(u8, u8, u8)>,
+}
+
+impl fmt::Debug for TextStyle {
+    // When comaring big structs, TextStyle is really
+    // noisy. To noise down, hide fields being None.
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        let mut x = f.debug_struct("TextStyle");
+        if self.bold.is_some() {
+            x.field("bold", &self.bold);
+        }
+        if self.code.is_some() {
+            x.field("code", &self.code);
+        }
+        if self.italic.is_some() {
+            x.field("italic", &self.italic);
+        }
+        if self.strike_through.is_some() {
+            x.field("strike_through", &self.strike_through);
+        }
+        if self.underline.is_some() {
+            x.field("underline", &self.underline);
+        }
+        if self.foreground_rgb.is_some() {
+            x.field("foreground_rgb", &self.foreground_rgb);
+        }
+        if self.background_rgb.is_some() {
+            x.field("background_rgb", &self.background_rgb);
+        }
+
+        x.finish()
+    }
 }
 
 // Example:
@@ -30,6 +62,24 @@ pub struct TextAtomic {
     pub text: String,
     pub style: TextStyle,
     pub url: Option<String>,
+}
+
+impl TextAtomic {
+    pub fn simple<T: ToString>(text: &T) -> Self {
+        Self {
+            text: text.to_string(),
+            style: TextStyle::default(),
+            url: None,
+        }
+    }
+    pub fn with_some_url<T: ToString>(mut self, url: &T) -> Self {
+        self.url = Some(url.to_string());
+        self
+    }
+    pub fn with_url(mut self, url: Option<String>) -> Self {
+        self.url = url;
+        self
+    }
 }
 
 pub struct TextAtomicBuilder(TextAtomic);
@@ -109,10 +159,10 @@ pub enum BlockContainer {
     // Multiline quote
     Quote(Vec<BlockContainer>),
     // Code block, not inline code.
-    // Style might be ignored in favor of
+    // Style will be ignored in favor of
     // formatting the entire code at once.
     Code {
-        code: Vec<TextAtomic>,
+        code: String,
         language: Option<Language>,
     },
     BulletPoints {

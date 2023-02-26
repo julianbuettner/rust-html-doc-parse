@@ -1,5 +1,6 @@
 pub mod model;
 pub mod parse;
-pub use model::*;
-#[macro_use]
 extern crate derive_builder;
+
+pub use model::*;
+pub use parse::parse_html;

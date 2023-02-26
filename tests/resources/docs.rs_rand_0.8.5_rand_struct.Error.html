@@ -1,0 +1,1450 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Error type of random number generators"><meta name="keywords" content="rust, rustlang, rust-lang, Error"><title>Error in rand - Rust</title><link rel="preload" as="font" type="font/woff2" crossorigin href="/SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="/FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="/FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="/SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="/SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="/SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" type="text/css" href="/normalize-20220213-1.60.0-nightly-1e12aef3f.css"><link rel="stylesheet" href="/-/static/vendored.css?0-6-0-54cb6675-2023-02-22" media="all" />
+
+<link rel="stylesheet" type="text/css" href="/rustdoc-20220213-1.60.0-nightly-1e12aef3f.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="/ayu-20220213-1.60.0-nightly-1e12aef3f.css" disabled><link rel="stylesheet" type="text/css" href="/dark-20220213-1.60.0-nightly-1e12aef3f.css" disabled><link rel="stylesheet" type="text/css" href="/light-20220213-1.60.0-nightly-1e12aef3f.css" id="themeStyle"><script id="default-settings" ></script><script src="/storage-20220213-1.60.0-nightly-1e12aef3f.js"></script><script src="../crates-20220213-1.60.0-nightly-1e12aef3f.js"></script><script defer src="/main-20220213-1.60.0-nightly-1e12aef3f.js"></script>
+    <noscript><link rel="stylesheet" href="/noscript-20220213-1.60.0-nightly-1e12aef3f.css"></noscript><link rel="shortcut icon" href="https://www.rust-lang.org/favicon.ico"><link rel="stylesheet" href="/-/static/rustdoc-2021-12-05.css?0-6-0-54cb6675-2023-02-22" media="all" />
+
+        <link rel="search" href="/-/static/opensearch.xml" type="application/opensearchdescription+xml" title="Docs.rs" />
+
+        <script type="text/javascript">function applyTheme(theme) {
+  document.documentElement.dataset.theme = theme;
+}
+
+window.addEventListener('storage', function (ev) {
+  if (ev.key === 'rustdoc-theme') {
+    applyTheme(ev.newValue);
+  }
+});
+
+// see ./storage-change-detection.html for details
+window.addEventListener('message', function (ev) {
+  if (ev.data && ev.data.storage && ev.data.storage.key === 'rustdoc-theme') {
+    applyTheme(ev.data.storage.value);
+  }
+});
+
+applyTheme(window.localStorage.getItem('rustdoc-theme'));
+</script>
+</head><body class="rustdoc-page">
+<div class="nav-container">
+    <div class="container">
+        <div class="pure-menu pure-menu-horizontal" role="navigation" aria-label="Main navigation">
+            <form action="/releases/search"
+                  method="GET"
+                  class="landing-search-form-nav  ">
+
+                
+                <a href="/" class="pure-menu-heading pure-menu-link docsrs-logo" aria-label="Docs.rs">
+                    <span title="Docs.rs"><span class="fa-svg " aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M290.8 48.6l78.4 29.7L288 109.5 206.8 78.3l78.4-29.7c1.8-.7 3.8-.7 5.7 0zM136 92.5V204.7c-1.3 .4-2.6 .8-3.9 1.3l-96 36.4C14.4 250.6 0 271.5 0 294.7V413.9c0 22.2 13.1 42.3 33.5 51.3l96 42.2c14.4 6.3 30.7 6.3 45.1 0L288 457.5l113.5 49.9c14.4 6.3 30.7 6.3 45.1 0l96-42.2c20.3-8.9 33.5-29.1 33.5-51.3V294.7c0-23.3-14.4-44.1-36.1-52.4l-96-36.4c-1.3-.5-2.6-.9-3.9-1.3V92.5c0-23.3-14.4-44.1-36.1-52.4l-96-36.4c-12.8-4.8-26.9-4.8-39.7 0l-96 36.4C150.4 48.4 136 69.3 136 92.5zM392 210.6l-82.4 31.2V152.6L392 121v89.6zM154.8 250.9l78.4 29.7L152 311.7 70.8 280.6l78.4-29.7c1.8-.7 3.8-.7 5.7 0zm18.8 204.4V354.8L256 323.2v95.9l-82.4 36.2zM421.2 250.9c1.8-.7 3.8-.7 5.7 0l78.4 29.7L424 311.7l-81.2-31.1 78.4-29.7zM523.2 421.2l-77.6 34.1V354.8L528 323.2v90.7c0 3.2-1.9 6-4.8 7.3z"/></svg></span></span>
+                    <span class="title">Docs.rs</span>
+                </a>
+<ul class="pure-menu-list"><li class="pure-menu-item pure-menu-has-children">
+            <a href="#" class="pure-menu-link crate-name" title="Random number generators and other randomness functionality.
+">
+                <span class="fa-svg " aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M234.5 5.7c13.9-5 29.1-5 43.1 0l192 68.6C495 83.4 512 107.5 512 134.6V377.4c0 27-17 51.2-42.5 60.3l-192 68.6c-13.9 5-29.1 5-43.1 0l-192-68.6C17 428.6 0 404.5 0 377.4V134.6c0-27 17-51.2 42.5-60.3l192-68.6zM256 66L82.3 128 256 190l173.7-62L256 66zm32 368.6l160-57.1v-188L288 246.6v188z"/></svg></span>
+                <span class="title">rand-0.8.5</span>
+            </a>
+
+            
+            <div class="pure-menu-children package-details-menu">
+                
+                <ul class="pure-menu-list menu-item-divided">
+                    <li class="pure-menu-heading" id="crate-title">
+                        rand 0.8.5
+                        <span id="clipboard" class="fa-svg fa-svg-fw" title="Copy crate name and version information"><svg width="24" height="25" viewBox="0 0 24 25" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-label="Copy to clipboard"><path d="M18 20h2v3c0 1-1 2-2 2H2c-.998 0-2-1-2-2V5c0-.911.755-1.667 1.667-1.667h5A3.323 3.323 0 0110 0a3.323 3.323 0 013.333 3.333h5C19.245 3.333 20 4.09 20 5v8.333h-2V9H2v14h16v-3zM3 7h14c0-.911-.793-1.667-1.75-1.667H13.5c-.957 0-1.75-.755-1.75-1.666C11.75 2.755 10.957 2 10 2s-1.75.755-1.75 1.667c0 .911-.793 1.666-1.75 1.666H4.75C3.793 5.333 3 6.09 3 7z"/><path d="M4 19h6v2H4zM12 11H4v2h8zM4 17h4v-2H4zM15 15v-3l-4.5 4.5L15 21v-3l8.027-.032L23 15z"/></svg></span>
+                    </li><li class="pure-menu-item">
+                        <a href="/crate/rand/0.8.5" class="pure-menu-link description" title="See rand in docs.rs">
+                            <span class="fa-svg fa-svg-fw " aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M234.5 5.7c13.9-5 29.1-5 43.1 0l192 68.6C495 83.4 512 107.5 512 134.6V377.4c0 27-17 51.2-42.5 60.3l-192 68.6c-13.9 5-29.1 5-43.1 0l-192-68.6C17 428.6 0 404.5 0 377.4V134.6c0-27 17-51.2 42.5-60.3l192-68.6zM256 66L82.3 128 256 190l173.7-62L256 66zm32 368.6l160-57.1v-188L288 246.6v188z"/></svg></span> Docs.rs crate page
+                        </a>
+                    </li>
+
+                    <li class="pure-menu-item">
+                        <a href="/crate/rand/0.8.5" class="pure-menu-link">
+                            <span class="fa-svg fa-svg-fw " aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M117.9 62.4c-16.8-5.6-25.8-23.7-20.2-40.5s23.7-25.8 40.5-20.2l113 37.7C265 15.8 290.7 0 320 0c44.2 0 80 35.8 80 80c0 3-.2 5.9-.5 8.8l122.6 40.9c16.8 5.6 25.8 23.7 20.2 40.5s-23.7 25.8-40.5 20.2L366.4 145.2c-4.5 3.2-9.3 5.9-14.4 8.2V480c0 17.7-14.3 32-32 32H128c-17.7 0-32-14.3-32-32s14.3-32 32-32H288V153.3c-21-9.2-37.2-27-44.2-49l-125.9-42zm396.3 211c-.4-.8-1.3-1.3-2.2-1.3s-1.7 .5-2.2 1.3L435.1 416H588.9L514.2 273.3zM512 224c18.8 0 36 10.4 44.7 27l77.8 148.5c3.1 5.8 6.1 14 5.5 23.8c-.7 12.1-4.8 35.2-24.8 55.1C594.9 498.6 562.2 512 512 512s-82.9-13.4-103.2-33.5c-20-20-24.2-43-24.8-55.1c-.6-9.8 2.5-18 5.5-23.8L467.3 251c8.7-16.6 25.9-27 44.7-27zM128 144c-.9 0-1.7 .5-2.2 1.3L51.1 288H204.9L130.2 145.3c-.4-.8-1.3-1.3-2.2-1.3zm44.7-21l77.8 148.5c3.1 5.8 6.1 14 5.5 23.8c-.7 12.1-4.8 35.2-24.8 55.1C210.9 370.6 178.2 384 128 384s-82.9-13.4-103.2-33.5c-20-20-24.2-43-24.8-55.1c-.6-9.8 2.5-18 5.5-23.8L83.3 123C92 106.4 109.2 96 128 96s36 10.4 44.7 27z"/></svg></span> MIT OR Apache-2.0
+                        </a>
+                    </li>
+                </ul>
+
+                <div class="pure-g menu-item-divided">
+                    <div class="pure-u-1-2 right-border">
+                        <ul class="pure-menu-list">
+                            <li class="pure-menu-heading">Links</li>
+
+                            <li class="pure-menu-item">
+                                    <a href="https:&#x2F;&#x2F;rust-random.github.io&#x2F;book" class="pure-menu-link">
+                                        <span class="fa-svg fa-svg-fw " aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M575.8 255.5c0 18-15 32.1-32 32.1h-32l.7 160.2c0 2.7-.2 5.4-.5 8.1V472c0 22.1-17.9 40-40 40H456c-1.1 0-2.2 0-3.3-.1c-1.4 .1-2.8 .1-4.2 .1H416 392c-22.1 0-40-17.9-40-40V448 384c0-17.7-14.3-32-32-32H256c-17.7 0-32 14.3-32 32v64 24c0 22.1-17.9 40-40 40H160 128.1c-1.5 0-3-.1-4.5-.2c-1.2 .1-2.4 .2-3.6 .2H104c-22.1 0-40-17.9-40-40V360c0-.9 0-1.9 .1-2.8V287.6H32c-18 0-32-14-32-32.1c0-9 3-17 10-24L266.4 8c7-7 15-8 22-8s15 2 21 7L564.8 231.5c8 7 12 15 11 24z"/></svg></span> Homepage
+                                    </a>
+                                </li><li class="pure-menu-item">
+                                    <a href="https:&#x2F;&#x2F;docs.rs&#x2F;rand" title="Canonical documentation" class="pure-menu-link">
+                                        <span class="fa-svg fa-svg-fw " aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M365.3 93.38l-74.63-74.64C278.6 6.742 262.3 0 245.4 0L64-.0001c-35.35 0-64 28.65-64 64l.0065 384c0 35.34 28.65 64 64 64H320c35.2 0 64-28.8 64-64V138.6C384 121.7 377.3 105.4 365.3 93.38zM336 448c0 8.836-7.164 16-16 16H64.02c-8.838 0-16-7.164-16-16L48 64.13c0-8.836 7.164-16 16-16h160L224 128c0 17.67 14.33 32 32 32h79.1V448zM96 280C96 293.3 106.8 304 120 304h144C277.3 304 288 293.3 288 280S277.3 256 264 256h-144C106.8 256 96 266.8 96 280zM264 352h-144C106.8 352 96 362.8 96 376s10.75 24 24 24h144c13.25 0 24-10.75 24-24S277.3 352 264 352z"/></svg></span> Documentation
+                                    </a>
+                                </li><li class="pure-menu-item">
+                                    <a href="https:&#x2F;&#x2F;github.com&#x2F;rust-random&#x2F;rand" class="pure-menu-link">
+                                        <span class="fa-svg fa-svg-fw " aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M80 104c13.3 0 24-10.7 24-24s-10.7-24-24-24S56 66.7 56 80s10.7 24 24 24zm80-24c0 32.8-19.7 61-48 73.3v87.8c18.8-10.9 40.7-17.1 64-17.1h96c35.3 0 64-28.7 64-64v-6.7C307.7 141 288 112.8 288 80c0-44.2 35.8-80 80-80s80 35.8 80 80c0 32.8-19.7 61-48 73.3V160c0 70.7-57.3 128-128 128H176c-35.3 0-64 28.7-64 64v6.7c28.3 12.3 48 40.5 48 73.3c0 44.2-35.8 80-80 80s-80-35.8-80-80c0-32.8 19.7-61 48-73.3V352 153.3C19.7 141 0 112.8 0 80C0 35.8 35.8 0 80 0s80 35.8 80 80zm232 0c0-13.3-10.7-24-24-24s-24 10.7-24 24s10.7 24 24 24s24-10.7 24-24zM80 456c13.3 0 24-10.7 24-24s-10.7-24-24-24s-24 10.7-24 24s10.7 24 24 24z"/></svg></span> Repository
+                                    </a>
+                                </li><li class="pure-menu-item">
+                                <a href="https://crates.io/crates/rand" class="pure-menu-link" title="See rand in crates.io">
+                                    <span class="fa-svg fa-svg-fw " aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M234.5 5.7c13.9-5 29.1-5 43.1 0l192 68.6C495 83.4 512 107.5 512 134.6V377.4c0 27-17 51.2-42.5 60.3l-192 68.6c-13.9 5-29.1 5-43.1 0l-192-68.6C17 428.6 0 404.5 0 377.4V134.6c0-27 17-51.2 42.5-60.3l192-68.6zM256 66L82.3 128 256 190l173.7-62L256 66zm32 368.6l160-57.1v-188L288 246.6v188z"/></svg></span> Crates.io
+                                </a>
+                            </li>
+
+                            
+                            <li class="pure-menu-item">
+                                <a href="/crate/rand/0.8.5/source/" title="Browse source of rand-0.8.5" class="pure-menu-link">
+                                    <span class="fa-svg fa-svg-fw " aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M88.7 223.8L0 375.8V96C0 60.7 28.7 32 64 32H181.5c17 0 33.3 6.7 45.3 18.7l26.5 26.5c12 12 28.3 18.7 45.3 18.7H416c35.3 0 64 28.7 64 64v32H144c-22.8 0-43.8 12.1-55.3 31.8zm27.6 16.1C122.1 230 132.6 224 144 224H544c11.5 0 22 6.1 27.7 16.1s5.7 22.2-.1 32.1l-112 192C453.9 474 443.4 480 432 480H32c-11.5 0-22-6.1-27.7-16.1s-5.7-22.2 .1-32.1l112-192z"/></svg></span> Source
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    
+                    <div class="pure-u-1-2">
+                        <ul class="pure-menu-list">
+                            <li class="pure-menu-heading">Owners</li><li class="pure-menu-item">
+                                    <a href="https://crates.io/users/alexcrichton" class="pure-menu-link">
+                                        <span class="fa-svg fa-svg-fw " aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M224 256c70.7 0 128-57.3 128-128S294.7 0 224 0S96 57.3 96 128s57.3 128 128 128zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512H418.3c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304H178.3z"/></svg></span> alexcrichton
+                                    </a>
+                                </li><li class="pure-menu-item">
+                                    <a href="https://crates.io/users/dhardy" class="pure-menu-link">
+                                        <span class="fa-svg fa-svg-fw " aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M224 256c70.7 0 128-57.3 128-128S294.7 0 224 0S96 57.3 96 128s57.3 128 128 128zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512H418.3c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304H178.3z"/></svg></span> dhardy
+                                    </a>
+                                </li><li class="pure-menu-item">
+                                    <a href="https://crates.io/users/github:rust-lang-nursery:libs" class="pure-menu-link">
+                                        <span class="fa-svg fa-svg-fw " aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M224 256c70.7 0 128-57.3 128-128S294.7 0 224 0S96 57.3 96 128s57.3 128 128 128zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512H418.3c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304H178.3z"/></svg></span> github:rust-lang-nursery:libs
+                                    </a>
+                                </li><li class="pure-menu-item">
+                                    <a href="https://crates.io/users/github:rust-random:maintainers" class="pure-menu-link">
+                                        <span class="fa-svg fa-svg-fw " aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M224 256c70.7 0 128-57.3 128-128S294.7 0 224 0S96 57.3 96 128s57.3 128 128 128zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512H418.3c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304H178.3z"/></svg></span> github:rust-random:maintainers
+                                    </a>
+                                </li></ul>
+                    </div>
+                </div>
+
+                <div class="pure-g menu-item-divided">
+                    <div class="pure-u-1-2 right-border">
+                        <ul class="pure-menu-list">
+                            <li class="pure-menu-heading">Dependencies</li>
+
+                            
+                            <li class="pure-menu-item">
+                                <div class="pure-menu pure-menu-scrollable sub-menu" tabindex="-1">
+                                    <ul class="pure-menu-list"><li class="pure-menu-item">
+                                                <a href="/log/^0.4.4" class="pure-menu-link">
+                                                    log ^0.4.4
+                                                    <i class="dependencies normal">normal</i>
+                                                </a>
+                                            </li><li class="pure-menu-item">
+                                                <a href="/packed_simd_2/^0.3.7" class="pure-menu-link">
+                                                    packed_simd_2 ^0.3.7
+                                                    <i class="dependencies normal">normal</i>
+                                                </a>
+                                            </li><li class="pure-menu-item">
+                                                <a href="/rand_chacha/^0.3.0" class="pure-menu-link">
+                                                    rand_chacha ^0.3.0
+                                                    <i class="dependencies normal">normal</i>
+                                                </a>
+                                            </li><li class="pure-menu-item">
+                                                <a href="/rand_core/^0.6.0" class="pure-menu-link">
+                                                    rand_core ^0.6.0
+                                                    <i class="dependencies normal">normal</i>
+                                                </a>
+                                            </li><li class="pure-menu-item">
+                                                <a href="/serde/^1.0.103" class="pure-menu-link">
+                                                    serde ^1.0.103
+                                                    <i class="dependencies normal">normal</i>
+                                                </a>
+                                            </li><li class="pure-menu-item">
+                                                <a href="/bincode/^1.2.1" class="pure-menu-link">
+                                                    bincode ^1.2.1
+                                                    <i class="dependencies dev">dev</i>
+                                                </a>
+                                            </li><li class="pure-menu-item">
+                                                <a href="/rand_pcg/^0.3.0" class="pure-menu-link">
+                                                    rand_pcg ^0.3.0
+                                                    <i class="dependencies dev">dev</i>
+                                                </a>
+                                            </li><li class="pure-menu-item">
+                                                <a href="/libc/^0.2.22" class="pure-menu-link">
+                                                    libc ^0.2.22
+                                                    <i class="dependencies normal">normal</i>
+                                                </a>
+                                            </li></ul>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="pure-u-1-2">
+                        <ul class="pure-menu-list">
+                            <li class="pure-menu-heading">Versions</li>
+
+                            <li class="pure-menu-item">
+                                <div class="pure-menu pure-menu-scrollable sub-menu" tabindex="-1">
+                                    <ul class="pure-menu-list">
+                                        
+                                        
+        
+        
+        <li class="pure-menu-item">
+            <a
+                href="/crate/rand/0.8.5/target-redirect/rand/struct.Error.html"
+                
+                rel="nofollow"
+                class="pure-menu-link"
+                
+                data-fragment="retain"
+            >
+                
+                0.8.5
+            </a>
+        </li>
+        
+        
+        <li class="pure-menu-item">
+            <a
+                href="/crate/rand/0.8.4/target-redirect/rand/struct.Error.html"
+                
+                rel="nofollow"
+                class="pure-menu-link"
+                
+                data-fragment="retain"
+            >
+                
+                0.8.4
+            </a>
+        </li>
+        
+        
+        <li class="pure-menu-item">
+            <a
+                href="/crate/rand/0.8.3/target-redirect/rand/struct.Error.html"
+                
+                rel="nofollow"
+                class="pure-menu-link"
+                
+                data-fragment="retain"
+            >
+                
+                0.8.3
+            </a>
+        </li>
+        
+        
+        <li class="pure-menu-item">
+            <a
+                href="/crate/rand/0.8.2/target-redirect/rand/struct.Error.html"
+                
+                rel="nofollow"
+                class="pure-menu-link"
+                
+                data-fragment="retain"
+            >
+                
+                0.8.2
+            </a>
+        </li>
+        
+        
+        <li class="pure-menu-item">
+            <a
+                href="/crate/rand/0.8.1/target-redirect/rand/struct.Error.html"
+                
+                rel="nofollow"
+                class="pure-menu-link"
+                
+                data-fragment="retain"
+            >
+                
+                0.8.1
+            </a>
+        </li>
+        
+        
+        <li class="pure-menu-item">
+            <a
+                href="/crate/rand/0.8.0/target-redirect/rand/struct.Error.html"
+                
+                rel="nofollow"
+                class="pure-menu-link"
+                
+                data-fragment="retain"
+            >
+                
+                0.8.0
+            </a>
+        </li>
+        
+        
+        <li class="pure-menu-item">
+            <a
+                href="/crate/rand/0.7.3/target-redirect/rand/struct.Error.html"
+                
+                rel="nofollow"
+                class="pure-menu-link"
+                
+                data-fragment="retain"
+            >
+                
+                0.7.3
+            </a>
+        </li>
+        
+        
+        <li class="pure-menu-item">
+            <a
+                href="/crate/rand/0.7.2/target-redirect/rand/struct.Error.html"
+                
+                rel="nofollow"
+                class="pure-menu-link"
+                
+                data-fragment="retain"
+            >
+                
+                0.7.2
+            </a>
+        </li>
+        
+        
+        <li class="pure-menu-item">
+            <a
+                href="/crate/rand/0.7.1/target-redirect/rand/struct.Error.html"
+                
+                rel="nofollow"
+                class="pure-menu-link warn"
+                 title="rand-0.7.1 is yanked"
+                data-fragment="retain"
+            >
+                
+                    <span class="fa-svg fa-svg-fw " aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M256 32c14.2 0 27.3 7.5 34.5 19.8l216 368c7.3 12.4 7.3 27.7 .2 40.1S486.3 480 472 480H40c-14.3 0-27.6-7.7-34.7-20.1s-7-27.8 .2-40.1l216-368C228.7 39.5 241.8 32 256 32zm0 128c-13.3 0-24 10.7-24 24V296c0 13.3 10.7 24 24 24s24-10.7 24-24V184c0-13.3-10.7-24-24-24zm32 224c0-17.7-14.3-32-32-32s-32 14.3-32 32s14.3 32 32 32s32-14.3 32-32z"/></svg></span>
+                
+                0.7.1
+            </a>
+        </li>
+        
+        
+        <li class="pure-menu-item">
+            <a
+                href="/crate/rand/0.7.0/target-redirect/rand/struct.Error.html"
+                
+                rel="nofollow"
+                class="pure-menu-link"
+                
+                data-fragment="retain"
+            >
+                
+                0.7.0
+            </a>
+        </li>
+        
+        
+        <li class="pure-menu-item">
+            <a
+                href="/crate/rand/0.7.0-pre.2/target-redirect/rand/struct.Error.html"
+                
+                rel="nofollow"
+                class="pure-menu-link"
+                
+                data-fragment="retain"
+            >
+                
+                0.7.0-pre.2
+            </a>
+        </li>
+        
+        
+        <li class="pure-menu-item">
+            <a
+                href="/crate/rand/0.7.0-pre.1/target-redirect/rand/struct.Error.html"
+                
+                rel="nofollow"
+                class="pure-menu-link warn"
+                 title="docs.rs failed to build rand-0.7.0-pre.1"
+                data-fragment="retain"
+            >
+                
+                    <span class="fa-svg fa-svg-fw " aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M256 32c14.2 0 27.3 7.5 34.5 19.8l216 368c7.3 12.4 7.3 27.7 .2 40.1S486.3 480 472 480H40c-14.3 0-27.6-7.7-34.7-20.1s-7-27.8 .2-40.1l216-368C228.7 39.5 241.8 32 256 32zm0 128c-13.3 0-24 10.7-24 24V296c0 13.3 10.7 24 24 24s24-10.7 24-24V184c0-13.3-10.7-24-24-24zm32 224c0-17.7-14.3-32-32-32s-32 14.3-32 32s14.3 32 32 32s32-14.3 32-32z"/></svg></span>
+                
+                0.7.0-pre.1
+            </a>
+        </li>
+        
+        
+        <li class="pure-menu-item">
+            <a
+                href="/crate/rand/0.7.0-pre.0/target-redirect/rand/struct.Error.html"
+                
+                rel="nofollow"
+                class="pure-menu-link warn"
+                 title="docs.rs failed to build rand-0.7.0-pre.0"
+                data-fragment="retain"
+            >
+                
+                    <span class="fa-svg fa-svg-fw " aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M256 32c14.2 0 27.3 7.5 34.5 19.8l216 368c7.3 12.4 7.3 27.7 .2 40.1S486.3 480 472 480H40c-14.3 0-27.6-7.7-34.7-20.1s-7-27.8 .2-40.1l216-368C228.7 39.5 241.8 32 256 32zm0 128c-13.3 0-24 10.7-24 24V296c0 13.3 10.7 24 24 24s24-10.7 24-24V184c0-13.3-10.7-24-24-24zm32 224c0-17.7-14.3-32-32-32s-32 14.3-32 32s14.3 32 32 32s32-14.3 32-32z"/></svg></span>
+                
+                0.7.0-pre.0
+            </a>
+        </li>
+        
+        
+        <li class="pure-menu-item">
+            <a
+                href="/crate/rand/0.6.5/target-redirect/rand/struct.Error.html"
+                
+                rel="nofollow"
+                class="pure-menu-link"
+                
+                data-fragment="retain"
+            >
+                
+                0.6.5
+            </a>
+        </li>
+        
+        
+        <li class="pure-menu-item">
+            <a
+                href="/crate/rand/0.6.4/target-redirect/rand/struct.Error.html"
+                
+                rel="nofollow"
+                class="pure-menu-link warn"
+                 title="docs.rs failed to build rand-0.6.4"
+                data-fragment="retain"
+            >
+                
+                    <span class="fa-svg fa-svg-fw " aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M256 32c14.2 0 27.3 7.5 34.5 19.8l216 368c7.3 12.4 7.3 27.7 .2 40.1S486.3 480 472 480H40c-14.3 0-27.6-7.7-34.7-20.1s-7-27.8 .2-40.1l216-368C228.7 39.5 241.8 32 256 32zm0 128c-13.3 0-24 10.7-24 24V296c0 13.3 10.7 24 24 24s24-10.7 24-24V184c0-13.3-10.7-24-24-24zm32 224c0-17.7-14.3-32-32-32s-32 14.3-32 32s14.3 32 32 32s32-14.3 32-32z"/></svg></span>
+                
+                0.6.4
+            </a>
+        </li>
+        
+        
+        <li class="pure-menu-item">
+            <a
+                href="/crate/rand/0.6.3/target-redirect/rand/struct.Error.html"
+                
+                rel="nofollow"
+                class="pure-menu-link warn"
+                 title="docs.rs failed to build rand-0.6.3"
+                data-fragment="retain"
+            >
+                
+                    <span class="fa-svg fa-svg-fw " aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M256 32c14.2 0 27.3 7.5 34.5 19.8l216 368c7.3 12.4 7.3 27.7 .2 40.1S486.3 480 472 480H40c-14.3 0-27.6-7.7-34.7-20.1s-7-27.8 .2-40.1l216-368C228.7 39.5 241.8 32 256 32zm0 128c-13.3 0-24 10.7-24 24V296c0 13.3 10.7 24 24 24s24-10.7 24-24V184c0-13.3-10.7-24-24-24zm32 224c0-17.7-14.3-32-32-32s-32 14.3-32 32s14.3 32 32 32s32-14.3 32-32z"/></svg></span>
+                
+                0.6.3
+            </a>
+        </li>
+        
+        
+        <li class="pure-menu-item">
+            <a
+                href="/crate/rand/0.6.2/target-redirect/rand/struct.Error.html"
+                
+                rel="nofollow"
+                class="pure-menu-link warn"
+                 title="docs.rs failed to build rand-0.6.2"
+                data-fragment="retain"
+            >
+                
+                    <span class="fa-svg fa-svg-fw " aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M256 32c14.2 0 27.3 7.5 34.5 19.8l216 368c7.3 12.4 7.3 27.7 .2 40.1S486.3 480 472 480H40c-14.3 0-27.6-7.7-34.7-20.1s-7-27.8 .2-40.1l216-368C228.7 39.5 241.8 32 256 32zm0 128c-13.3 0-24 10.7-24 24V296c0 13.3 10.7 24 24 24s24-10.7 24-24V184c0-13.3-10.7-24-24-24zm32 224c0-17.7-14.3-32-32-32s-32 14.3-32 32s14.3 32 32 32s32-14.3 32-32z"/></svg></span>
+                
+                0.6.2
+            </a>
+        </li>
+        
+        
+        <li class="pure-menu-item">
+            <a
+                href="/crate/rand/0.6.1/target-redirect/rand/struct.Error.html"
+                
+                rel="nofollow"
+                class="pure-menu-link warn"
+                 title="docs.rs failed to build rand-0.6.1"
+                data-fragment="retain"
+            >
+                
+                    <span class="fa-svg fa-svg-fw " aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M256 32c14.2 0 27.3 7.5 34.5 19.8l216 368c7.3 12.4 7.3 27.7 .2 40.1S486.3 480 472 480H40c-14.3 0-27.6-7.7-34.7-20.1s-7-27.8 .2-40.1l216-368C228.7 39.5 241.8 32 256 32zm0 128c-13.3 0-24 10.7-24 24V296c0 13.3 10.7 24 24 24s24-10.7 24-24V184c0-13.3-10.7-24-24-24zm32 224c0-17.7-14.3-32-32-32s-32 14.3-32 32s14.3 32 32 32s32-14.3 32-32z"/></svg></span>
+                
+                0.6.1
+            </a>
+        </li>
+        
+        
+        <li class="pure-menu-item">
+            <a
+                href="/crate/rand/0.6.0/target-redirect/rand/struct.Error.html"
+                
+                rel="nofollow"
+                class="pure-menu-link warn"
+                 title="docs.rs failed to build rand-0.6.0"
+                data-fragment="retain"
+            >
+                
+                    <span class="fa-svg fa-svg-fw " aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M256 32c14.2 0 27.3 7.5 34.5 19.8l216 368c7.3 12.4 7.3 27.7 .2 40.1S486.3 480 472 480H40c-14.3 0-27.6-7.7-34.7-20.1s-7-27.8 .2-40.1l216-368C228.7 39.5 241.8 32 256 32zm0 128c-13.3 0-24 10.7-24 24V296c0 13.3 10.7 24 24 24s24-10.7 24-24V184c0-13.3-10.7-24-24-24zm32 224c0-17.7-14.3-32-32-32s-32 14.3-32 32s14.3 32 32 32s32-14.3 32-32z"/></svg></span>
+                
+                0.6.0
+            </a>
+        </li>
+        
+        
+        <li class="pure-menu-item">
+            <a
+                href="/crate/rand/0.6.0-pre.1/target-redirect/rand/struct.Error.html"
+                
+                rel="nofollow"
+                class="pure-menu-link warn"
+                 title="docs.rs failed to build rand-0.6.0-pre.1"
+                data-fragment="retain"
+            >
+                
+                    <span class="fa-svg fa-svg-fw " aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M256 32c14.2 0 27.3 7.5 34.5 19.8l216 368c7.3 12.4 7.3 27.7 .2 40.1S486.3 480 472 480H40c-14.3 0-27.6-7.7-34.7-20.1s-7-27.8 .2-40.1l216-368C228.7 39.5 241.8 32 256 32zm0 128c-13.3 0-24 10.7-24 24V296c0 13.3 10.7 24 24 24s24-10.7 24-24V184c0-13.3-10.7-24-24-24zm32 224c0-17.7-14.3-32-32-32s-32 14.3-32 32s14.3 32 32 32s32-14.3 32-32z"/></svg></span>
+                
+                0.6.0-pre.1
+            </a>
+        </li>
+        
+        
+        <li class="pure-menu-item">
+            <a
+                href="/crate/rand/0.6.0-pre.0/target-redirect/rand/struct.Error.html"
+                
+                rel="nofollow"
+                class="pure-menu-link"
+                
+                data-fragment="retain"
+            >
+                
+                0.6.0-pre.0
+            </a>
+        </li>
+        
+        
+        <li class="pure-menu-item">
+            <a
+                href="/crate/rand/0.5.6/target-redirect/rand/struct.Error.html"
+                
+                rel="nofollow"
+                class="pure-menu-link"
+                
+                data-fragment="retain"
+            >
+                
+                0.5.6
+            </a>
+        </li>
+        
+        
+        <li class="pure-menu-item">
+            <a
+                href="/crate/rand/0.5.5/target-redirect/rand/struct.Error.html"
+                
+                rel="nofollow"
+                class="pure-menu-link"
+                
+                data-fragment="retain"
+            >
+                
+                0.5.5
+            </a>
+        </li>
+        
+        
+        <li class="pure-menu-item">
+            <a
+                href="/crate/rand/0.5.4/target-redirect/rand/struct.Error.html"
+                
+                rel="nofollow"
+                class="pure-menu-link"
+                
+                data-fragment="retain"
+            >
+                
+                0.5.4
+            </a>
+        </li>
+        
+        
+        <li class="pure-menu-item">
+            <a
+                href="/crate/rand/0.5.3/target-redirect/rand/struct.Error.html"
+                
+                rel="nofollow"
+                class="pure-menu-link"
+                
+                data-fragment="retain"
+            >
+                
+                0.5.3
+            </a>
+        </li>
+        
+        
+        <li class="pure-menu-item">
+            <a
+                href="/crate/rand/0.5.2/target-redirect/rand/struct.Error.html"
+                
+                rel="nofollow"
+                class="pure-menu-link"
+                
+                data-fragment="retain"
+            >
+                
+                0.5.2
+            </a>
+        </li>
+        
+        
+        <li class="pure-menu-item">
+            <a
+                href="/crate/rand/0.5.1/target-redirect/rand/struct.Error.html"
+                
+                rel="nofollow"
+                class="pure-menu-link"
+                
+                data-fragment="retain"
+            >
+                
+                0.5.1
+            </a>
+        </li>
+        
+        
+        <li class="pure-menu-item">
+            <a
+                href="/crate/rand/0.5.0/target-redirect/rand/struct.Error.html"
+                
+                rel="nofollow"
+                class="pure-menu-link"
+                
+                data-fragment="retain"
+            >
+                
+                0.5.0
+            </a>
+        </li>
+        
+        
+        <li class="pure-menu-item">
+            <a
+                href="/crate/rand/0.5.0-pre.2/target-redirect/rand/struct.Error.html"
+                
+                rel="nofollow"
+                class="pure-menu-link"
+                
+                data-fragment="retain"
+            >
+                
+                0.5.0-pre.2
+            </a>
+        </li>
+        
+        
+        <li class="pure-menu-item">
+            <a
+                href="/crate/rand/0.5.0-pre.1/target-redirect/rand/struct.Error.html"
+                
+                rel="nofollow"
+                class="pure-menu-link warn"
+                 title="docs.rs failed to build rand-0.5.0-pre.1"
+                data-fragment="retain"
+            >
+                
+                    <span class="fa-svg fa-svg-fw " aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M256 32c14.2 0 27.3 7.5 34.5 19.8l216 368c7.3 12.4 7.3 27.7 .2 40.1S486.3 480 472 480H40c-14.3 0-27.6-7.7-34.7-20.1s-7-27.8 .2-40.1l216-368C228.7 39.5 241.8 32 256 32zm0 128c-13.3 0-24 10.7-24 24V296c0 13.3 10.7 24 24 24s24-10.7 24-24V184c0-13.3-10.7-24-24-24zm32 224c0-17.7-14.3-32-32-32s-32 14.3-32 32s14.3 32 32 32s32-14.3 32-32z"/></svg></span>
+                
+                0.5.0-pre.1
+            </a>
+        </li>
+        
+        
+        <li class="pure-menu-item">
+            <a
+                href="/crate/rand/0.5.0-pre.0/target-redirect/rand/struct.Error.html"
+                
+                rel="nofollow"
+                class="pure-menu-link"
+                
+                data-fragment="retain"
+            >
+                
+                0.5.0-pre.0
+            </a>
+        </li>
+        
+        
+        <li class="pure-menu-item">
+            <a
+                href="/crate/rand/0.4.6/target-redirect/rand/struct.Error.html"
+                
+                rel="nofollow"
+                class="pure-menu-link"
+                
+                data-fragment="retain"
+            >
+                
+                0.4.6
+            </a>
+        </li>
+        
+        
+        <li class="pure-menu-item">
+            <a
+                href="/crate/rand/0.4.5/target-redirect/rand/struct.Error.html"
+                
+                rel="nofollow"
+                class="pure-menu-link"
+                
+                data-fragment="retain"
+            >
+                
+                0.4.5
+            </a>
+        </li>
+        
+        
+        <li class="pure-menu-item">
+            <a
+                href="/crate/rand/0.4.4/target-redirect/rand/struct.Error.html"
+                
+                rel="nofollow"
+                class="pure-menu-link warn"
+                 title="rand-0.4.4 is yanked"
+                data-fragment="retain"
+            >
+                
+                    <span class="fa-svg fa-svg-fw " aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M256 32c14.2 0 27.3 7.5 34.5 19.8l216 368c7.3 12.4 7.3 27.7 .2 40.1S486.3 480 472 480H40c-14.3 0-27.6-7.7-34.7-20.1s-7-27.8 .2-40.1l216-368C228.7 39.5 241.8 32 256 32zm0 128c-13.3 0-24 10.7-24 24V296c0 13.3 10.7 24 24 24s24-10.7 24-24V184c0-13.3-10.7-24-24-24zm32 224c0-17.7-14.3-32-32-32s-32 14.3-32 32s14.3 32 32 32s32-14.3 32-32z"/></svg></span>
+                
+                0.4.4
+            </a>
+        </li>
+        
+        
+        <li class="pure-menu-item">
+            <a
+                href="/crate/rand/0.4.3/target-redirect/rand/struct.Error.html"
+                
+                rel="nofollow"
+                class="pure-menu-link"
+                
+                data-fragment="retain"
+            >
+                
+                0.4.3
+            </a>
+        </li>
+        
+        
+        <li class="pure-menu-item">
+            <a
+                href="/crate/rand/0.4.2/target-redirect/rand/struct.Error.html"
+                
+                rel="nofollow"
+                class="pure-menu-link"
+                
+                data-fragment="retain"
+            >
+                
+                0.4.2
+            </a>
+        </li>
+        
+        
+        <li class="pure-menu-item">
+            <a
+                href="/crate/rand/0.4.1/target-redirect/rand/struct.Error.html"
+                
+                rel="nofollow"
+                class="pure-menu-link"
+                
+                data-fragment="retain"
+            >
+                
+                0.4.1
+            </a>
+        </li>
+        
+        
+        <li class="pure-menu-item">
+            <a
+                href="/crate/rand/0.4.0-pre.0/target-redirect/rand/struct.Error.html"
+                
+                rel="nofollow"
+                class="pure-menu-link"
+                
+                data-fragment="retain"
+            >
+                
+                0.4.0-pre.0
+            </a>
+        </li>
+        
+        
+        <li class="pure-menu-item">
+            <a
+                href="/crate/rand/0.3.23/target-redirect/rand/struct.Error.html"
+                
+                rel="nofollow"
+                class="pure-menu-link"
+                
+                data-fragment="retain"
+            >
+                
+                0.3.23
+            </a>
+        </li>
+        
+        
+        <li class="pure-menu-item">
+            <a
+                href="/crate/rand/0.3.22/target-redirect/rand/struct.Error.html"
+                
+                rel="nofollow"
+                class="pure-menu-link"
+                
+                data-fragment="retain"
+            >
+                
+                0.3.22
+            </a>
+        </li>
+        
+        
+        <li class="pure-menu-item">
+            <a
+                href="/crate/rand/0.3.21-pre.0/target-redirect/rand/struct.Error.html"
+                
+                rel="nofollow"
+                class="pure-menu-link"
+                
+                data-fragment="retain"
+            >
+                
+                0.3.21-pre.0
+            </a>
+        </li>
+        
+        
+        <li class="pure-menu-item">
+            <a
+                href="/crate/rand/0.3.20/target-redirect/rand/struct.Error.html"
+                
+                rel="nofollow"
+                class="pure-menu-link"
+                
+                data-fragment="retain"
+            >
+                
+                0.3.20
+            </a>
+        </li>
+        
+        
+        <li class="pure-menu-item">
+            <a
+                href="/crate/rand/0.3.19/target-redirect/rand/struct.Error.html"
+                
+                rel="nofollow"
+                class="pure-menu-link"
+                
+                data-fragment="retain"
+            >
+                
+                0.3.19
+            </a>
+        </li>
+        
+        
+        <li class="pure-menu-item">
+            <a
+                href="/crate/rand/0.3.18/target-redirect/rand/struct.Error.html"
+                
+                rel="nofollow"
+                class="pure-menu-link"
+                
+                data-fragment="retain"
+            >
+                
+                0.3.18
+            </a>
+        </li>
+        
+        
+        <li class="pure-menu-item">
+            <a
+                href="/crate/rand/0.3.17/target-redirect/rand/struct.Error.html"
+                
+                rel="nofollow"
+                class="pure-menu-link"
+                
+                data-fragment="retain"
+            >
+                
+                0.3.17
+            </a>
+        </li>
+        
+        
+        <li class="pure-menu-item">
+            <a
+                href="/crate/rand/0.3.16/target-redirect/rand/struct.Error.html"
+                
+                rel="nofollow"
+                class="pure-menu-link"
+                
+                data-fragment="retain"
+            >
+                
+                0.3.16
+            </a>
+        </li>
+        
+        
+        <li class="pure-menu-item">
+            <a
+                href="/crate/rand/0.3.15/target-redirect/rand/struct.Error.html"
+                
+                rel="nofollow"
+                class="pure-menu-link"
+                
+                data-fragment="retain"
+            >
+                
+                0.3.15
+            </a>
+        </li>
+        
+        
+        <li class="pure-menu-item">
+            <a
+                href="/crate/rand/0.3.14/target-redirect/rand/struct.Error.html"
+                
+                rel="nofollow"
+                class="pure-menu-link"
+                
+                data-fragment="retain"
+            >
+                
+                0.3.14
+            </a>
+        </li>
+        
+        
+        <li class="pure-menu-item">
+            <a
+                href="/crate/rand/0.3.13/target-redirect/rand/struct.Error.html"
+                
+                rel="nofollow"
+                class="pure-menu-link"
+                
+                data-fragment="retain"
+            >
+                
+                0.3.13
+            </a>
+        </li>
+        
+        
+        <li class="pure-menu-item">
+            <a
+                href="/crate/rand/0.3.12/target-redirect/rand/struct.Error.html"
+                
+                rel="nofollow"
+                class="pure-menu-link"
+                
+                data-fragment="retain"
+            >
+                
+                0.3.12
+            </a>
+        </li>
+        
+        
+        <li class="pure-menu-item">
+            <a
+                href="/crate/rand/0.3.11/target-redirect/rand/struct.Error.html"
+                
+                rel="nofollow"
+                class="pure-menu-link"
+                
+                data-fragment="retain"
+            >
+                
+                0.3.11
+            </a>
+        </li>
+        
+        
+        <li class="pure-menu-item">
+            <a
+                href="/crate/rand/0.3.10/target-redirect/rand/struct.Error.html"
+                
+                rel="nofollow"
+                class="pure-menu-link"
+                
+                data-fragment="retain"
+            >
+                
+                0.3.10
+            </a>
+        </li>
+        
+        
+        <li class="pure-menu-item">
+            <a
+                href="/crate/rand/0.3.9/target-redirect/rand/struct.Error.html"
+                
+                rel="nofollow"
+                class="pure-menu-link warn"
+                 title="docs.rs failed to build rand-0.3.9"
+                data-fragment="retain"
+            >
+                
+                    <span class="fa-svg fa-svg-fw " aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M256 32c14.2 0 27.3 7.5 34.5 19.8l216 368c7.3 12.4 7.3 27.7 .2 40.1S486.3 480 472 480H40c-14.3 0-27.6-7.7-34.7-20.1s-7-27.8 .2-40.1l216-368C228.7 39.5 241.8 32 256 32zm0 128c-13.3 0-24 10.7-24 24V296c0 13.3 10.7 24 24 24s24-10.7 24-24V184c0-13.3-10.7-24-24-24zm32 224c0-17.7-14.3-32-32-32s-32 14.3-32 32s14.3 32 32 32s32-14.3 32-32z"/></svg></span>
+                
+                0.3.9
+            </a>
+        </li>
+        
+        
+        <li class="pure-menu-item">
+            <a
+                href="/crate/rand/0.3.8/target-redirect/rand/struct.Error.html"
+                
+                rel="nofollow"
+                class="pure-menu-link warn"
+                 title="docs.rs failed to build rand-0.3.8"
+                data-fragment="retain"
+            >
+                
+                    <span class="fa-svg fa-svg-fw " aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M256 32c14.2 0 27.3 7.5 34.5 19.8l216 368c7.3 12.4 7.3 27.7 .2 40.1S486.3 480 472 480H40c-14.3 0-27.6-7.7-34.7-20.1s-7-27.8 .2-40.1l216-368C228.7 39.5 241.8 32 256 32zm0 128c-13.3 0-24 10.7-24 24V296c0 13.3 10.7 24 24 24s24-10.7 24-24V184c0-13.3-10.7-24-24-24zm32 224c0-17.7-14.3-32-32-32s-32 14.3-32 32s14.3 32 32 32s32-14.3 32-32z"/></svg></span>
+                
+                0.3.8
+            </a>
+        </li>
+        
+        
+        <li class="pure-menu-item">
+            <a
+                href="/crate/rand/0.3.7/target-redirect/rand/struct.Error.html"
+                
+                rel="nofollow"
+                class="pure-menu-link warn"
+                 title="docs.rs failed to build rand-0.3.7"
+                data-fragment="retain"
+            >
+                
+                    <span class="fa-svg fa-svg-fw " aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M256 32c14.2 0 27.3 7.5 34.5 19.8l216 368c7.3 12.4 7.3 27.7 .2 40.1S486.3 480 472 480H40c-14.3 0-27.6-7.7-34.7-20.1s-7-27.8 .2-40.1l216-368C228.7 39.5 241.8 32 256 32zm0 128c-13.3 0-24 10.7-24 24V296c0 13.3 10.7 24 24 24s24-10.7 24-24V184c0-13.3-10.7-24-24-24zm32 224c0-17.7-14.3-32-32-32s-32 14.3-32 32s14.3 32 32 32s32-14.3 32-32z"/></svg></span>
+                
+                0.3.7
+            </a>
+        </li>
+        
+        
+        <li class="pure-menu-item">
+            <a
+                href="/crate/rand/0.3.6/target-redirect/rand/struct.Error.html"
+                
+                rel="nofollow"
+                class="pure-menu-link warn"
+                 title="docs.rs failed to build rand-0.3.6"
+                data-fragment="retain"
+            >
+                
+                    <span class="fa-svg fa-svg-fw " aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M256 32c14.2 0 27.3 7.5 34.5 19.8l216 368c7.3 12.4 7.3 27.7 .2 40.1S486.3 480 472 480H40c-14.3 0-27.6-7.7-34.7-20.1s-7-27.8 .2-40.1l216-368C228.7 39.5 241.8 32 256 32zm0 128c-13.3 0-24 10.7-24 24V296c0 13.3 10.7 24 24 24s24-10.7 24-24V184c0-13.3-10.7-24-24-24zm32 224c0-17.7-14.3-32-32-32s-32 14.3-32 32s14.3 32 32 32s32-14.3 32-32z"/></svg></span>
+                
+                0.3.6
+            </a>
+        </li>
+        
+        
+        <li class="pure-menu-item">
+            <a
+                href="/crate/rand/0.3.5/target-redirect/rand/struct.Error.html"
+                
+                rel="nofollow"
+                class="pure-menu-link warn"
+                 title="docs.rs failed to build rand-0.3.5"
+                data-fragment="retain"
+            >
+                
+                    <span class="fa-svg fa-svg-fw " aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M256 32c14.2 0 27.3 7.5 34.5 19.8l216 368c7.3 12.4 7.3 27.7 .2 40.1S486.3 480 472 480H40c-14.3 0-27.6-7.7-34.7-20.1s-7-27.8 .2-40.1l216-368C228.7 39.5 241.8 32 256 32zm0 128c-13.3 0-24 10.7-24 24V296c0 13.3 10.7 24 24 24s24-10.7 24-24V184c0-13.3-10.7-24-24-24zm32 224c0-17.7-14.3-32-32-32s-32 14.3-32 32s14.3 32 32 32s32-14.3 32-32z"/></svg></span>
+                
+                0.3.5
+            </a>
+        </li>
+        
+        
+        <li class="pure-menu-item">
+            <a
+                href="/crate/rand/0.3.4/target-redirect/rand/struct.Error.html"
+                
+                rel="nofollow"
+                class="pure-menu-link warn"
+                 title="docs.rs failed to build rand-0.3.4"
+                data-fragment="retain"
+            >
+                
+                    <span class="fa-svg fa-svg-fw " aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M256 32c14.2 0 27.3 7.5 34.5 19.8l216 368c7.3 12.4 7.3 27.7 .2 40.1S486.3 480 472 480H40c-14.3 0-27.6-7.7-34.7-20.1s-7-27.8 .2-40.1l216-368C228.7 39.5 241.8 32 256 32zm0 128c-13.3 0-24 10.7-24 24V296c0 13.3 10.7 24 24 24s24-10.7 24-24V184c0-13.3-10.7-24-24-24zm32 224c0-17.7-14.3-32-32-32s-32 14.3-32 32s14.3 32 32 32s32-14.3 32-32z"/></svg></span>
+                
+                0.3.4
+            </a>
+        </li>
+        
+        
+        <li class="pure-menu-item">
+            <a
+                href="/crate/rand/0.3.3/target-redirect/rand/struct.Error.html"
+                
+                rel="nofollow"
+                class="pure-menu-link warn"
+                 title="docs.rs failed to build rand-0.3.3"
+                data-fragment="retain"
+            >
+                
+                    <span class="fa-svg fa-svg-fw " aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M256 32c14.2 0 27.3 7.5 34.5 19.8l216 368c7.3 12.4 7.3 27.7 .2 40.1S486.3 480 472 480H40c-14.3 0-27.6-7.7-34.7-20.1s-7-27.8 .2-40.1l216-368C228.7 39.5 241.8 32 256 32zm0 128c-13.3 0-24 10.7-24 24V296c0 13.3 10.7 24 24 24s24-10.7 24-24V184c0-13.3-10.7-24-24-24zm32 224c0-17.7-14.3-32-32-32s-32 14.3-32 32s14.3 32 32 32s32-14.3 32-32z"/></svg></span>
+                
+                0.3.3
+            </a>
+        </li>
+        
+        
+        <li class="pure-menu-item">
+            <a
+                href="/crate/rand/0.3.2/target-redirect/rand/struct.Error.html"
+                
+                rel="nofollow"
+                class="pure-menu-link warn"
+                 title="docs.rs failed to build rand-0.3.2"
+                data-fragment="retain"
+            >
+                
+                    <span class="fa-svg fa-svg-fw " aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M256 32c14.2 0 27.3 7.5 34.5 19.8l216 368c7.3 12.4 7.3 27.7 .2 40.1S486.3 480 472 480H40c-14.3 0-27.6-7.7-34.7-20.1s-7-27.8 .2-40.1l216-368C228.7 39.5 241.8 32 256 32zm0 128c-13.3 0-24 10.7-24 24V296c0 13.3 10.7 24 24 24s24-10.7 24-24V184c0-13.3-10.7-24-24-24zm32 224c0-17.7-14.3-32-32-32s-32 14.3-32 32s14.3 32 32 32s32-14.3 32-32z"/></svg></span>
+                
+                0.3.2
+            </a>
+        </li>
+        
+        
+        <li class="pure-menu-item">
+            <a
+                href="/crate/rand/0.3.1/target-redirect/rand/struct.Error.html"
+                
+                rel="nofollow"
+                class="pure-menu-link warn"
+                 title="docs.rs failed to build rand-0.3.1"
+                data-fragment="retain"
+            >
+                
+                    <span class="fa-svg fa-svg-fw " aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M256 32c14.2 0 27.3 7.5 34.5 19.8l216 368c7.3 12.4 7.3 27.7 .2 40.1S486.3 480 472 480H40c-14.3 0-27.6-7.7-34.7-20.1s-7-27.8 .2-40.1l216-368C228.7 39.5 241.8 32 256 32zm0 128c-13.3 0-24 10.7-24 24V296c0 13.3 10.7 24 24 24s24-10.7 24-24V184c0-13.3-10.7-24-24-24zm32 224c0-17.7-14.3-32-32-32s-32 14.3-32 32s14.3 32 32 32s32-14.3 32-32z"/></svg></span>
+                
+                0.3.1
+            </a>
+        </li>
+        
+        
+        <li class="pure-menu-item">
+            <a
+                href="/crate/rand/0.3.0/target-redirect/rand/struct.Error.html"
+                
+                rel="nofollow"
+                class="pure-menu-link warn"
+                 title="docs.rs failed to build rand-0.3.0"
+                data-fragment="retain"
+            >
+                
+                    <span class="fa-svg fa-svg-fw " aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M256 32c14.2 0 27.3 7.5 34.5 19.8l216 368c7.3 12.4 7.3 27.7 .2 40.1S486.3 480 472 480H40c-14.3 0-27.6-7.7-34.7-20.1s-7-27.8 .2-40.1l216-368C228.7 39.5 241.8 32 256 32zm0 128c-13.3 0-24 10.7-24 24V296c0 13.3 10.7 24 24 24s24-10.7 24-24V184c0-13.3-10.7-24-24-24zm32 224c0-17.7-14.3-32-32-32s-32 14.3-32 32s14.3 32 32 32s32-14.3 32-32z"/></svg></span>
+                
+                0.3.0
+            </a>
+        </li>
+        
+        
+        <li class="pure-menu-item">
+            <a
+                href="/crate/rand/0.2.1/target-redirect/rand/struct.Error.html"
+                
+                rel="nofollow"
+                class="pure-menu-link warn"
+                 title="docs.rs failed to build rand-0.2.1"
+                data-fragment="retain"
+            >
+                
+                    <span class="fa-svg fa-svg-fw " aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M256 32c14.2 0 27.3 7.5 34.5 19.8l216 368c7.3 12.4 7.3 27.7 .2 40.1S486.3 480 472 480H40c-14.3 0-27.6-7.7-34.7-20.1s-7-27.8 .2-40.1l216-368C228.7 39.5 241.8 32 256 32zm0 128c-13.3 0-24 10.7-24 24V296c0 13.3 10.7 24 24 24s24-10.7 24-24V184c0-13.3-10.7-24-24-24zm32 224c0-17.7-14.3-32-32-32s-32 14.3-32 32s14.3 32 32 32s32-14.3 32-32z"/></svg></span>
+                
+                0.2.1
+            </a>
+        </li>
+        
+        
+        <li class="pure-menu-item">
+            <a
+                href="/crate/rand/0.2.0/target-redirect/rand/struct.Error.html"
+                
+                rel="nofollow"
+                class="pure-menu-link warn"
+                 title="docs.rs failed to build rand-0.2.0"
+                data-fragment="retain"
+            >
+                
+                    <span class="fa-svg fa-svg-fw " aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M256 32c14.2 0 27.3 7.5 34.5 19.8l216 368c7.3 12.4 7.3 27.7 .2 40.1S486.3 480 472 480H40c-14.3 0-27.6-7.7-34.7-20.1s-7-27.8 .2-40.1l216-368C228.7 39.5 241.8 32 256 32zm0 128c-13.3 0-24 10.7-24 24V296c0 13.3 10.7 24 24 24s24-10.7 24-24V184c0-13.3-10.7-24-24-24zm32 224c0-17.7-14.3-32-32-32s-32 14.3-32 32s14.3 32 32 32s32-14.3 32-32z"/></svg></span>
+                
+                0.2.0
+            </a>
+        </li>
+        
+        
+        <li class="pure-menu-item">
+            <a
+                href="/crate/rand/0.1.4/target-redirect/rand/struct.Error.html"
+                
+                rel="nofollow"
+                class="pure-menu-link warn"
+                 title="docs.rs failed to build rand-0.1.4"
+                data-fragment="retain"
+            >
+                
+                    <span class="fa-svg fa-svg-fw " aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M256 32c14.2 0 27.3 7.5 34.5 19.8l216 368c7.3 12.4 7.3 27.7 .2 40.1S486.3 480 472 480H40c-14.3 0-27.6-7.7-34.7-20.1s-7-27.8 .2-40.1l216-368C228.7 39.5 241.8 32 256 32zm0 128c-13.3 0-24 10.7-24 24V296c0 13.3 10.7 24 24 24s24-10.7 24-24V184c0-13.3-10.7-24-24-24zm32 224c0-17.7-14.3-32-32-32s-32 14.3-32 32s14.3 32 32 32s32-14.3 32-32z"/></svg></span>
+                
+                0.1.4
+            </a>
+        </li>
+        
+        
+        <li class="pure-menu-item">
+            <a
+                href="/crate/rand/0.1.3/target-redirect/rand/struct.Error.html"
+                
+                rel="nofollow"
+                class="pure-menu-link warn"
+                 title="docs.rs failed to build rand-0.1.3"
+                data-fragment="retain"
+            >
+                
+                    <span class="fa-svg fa-svg-fw " aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M256 32c14.2 0 27.3 7.5 34.5 19.8l216 368c7.3 12.4 7.3 27.7 .2 40.1S486.3 480 472 480H40c-14.3 0-27.6-7.7-34.7-20.1s-7-27.8 .2-40.1l216-368C228.7 39.5 241.8 32 256 32zm0 128c-13.3 0-24 10.7-24 24V296c0 13.3 10.7 24 24 24s24-10.7 24-24V184c0-13.3-10.7-24-24-24zm32 224c0-17.7-14.3-32-32-32s-32 14.3-32 32s14.3 32 32 32s32-14.3 32-32z"/></svg></span>
+                
+                0.1.3
+            </a>
+        </li>
+        
+        
+        <li class="pure-menu-item">
+            <a
+                href="/crate/rand/0.1.2/target-redirect/rand/struct.Error.html"
+                
+                rel="nofollow"
+                class="pure-menu-link warn"
+                 title="docs.rs failed to build rand-0.1.2"
+                data-fragment="retain"
+            >
+                
+                    <span class="fa-svg fa-svg-fw " aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M256 32c14.2 0 27.3 7.5 34.5 19.8l216 368c7.3 12.4 7.3 27.7 .2 40.1S486.3 480 472 480H40c-14.3 0-27.6-7.7-34.7-20.1s-7-27.8 .2-40.1l216-368C228.7 39.5 241.8 32 256 32zm0 128c-13.3 0-24 10.7-24 24V296c0 13.3 10.7 24 24 24s24-10.7 24-24V184c0-13.3-10.7-24-24-24zm32 224c0-17.7-14.3-32-32-32s-32 14.3-32 32s14.3 32 32 32s32-14.3 32-32z"/></svg></span>
+                
+                0.1.2
+            </a>
+        </li>
+        
+        
+        <li class="pure-menu-item">
+            <a
+                href="/crate/rand/0.1.1/target-redirect/rand/struct.Error.html"
+                
+                rel="nofollow"
+                class="pure-menu-link warn"
+                 title="docs.rs failed to build rand-0.1.1"
+                data-fragment="retain"
+            >
+                
+                    <span class="fa-svg fa-svg-fw " aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M256 32c14.2 0 27.3 7.5 34.5 19.8l216 368c7.3 12.4 7.3 27.7 .2 40.1S486.3 480 472 480H40c-14.3 0-27.6-7.7-34.7-20.1s-7-27.8 .2-40.1l216-368C228.7 39.5 241.8 32 256 32zm0 128c-13.3 0-24 10.7-24 24V296c0 13.3 10.7 24 24 24s24-10.7 24-24V184c0-13.3-10.7-24-24-24zm32 224c0-17.7-14.3-32-32-32s-32 14.3-32 32s14.3 32 32 32s32-14.3 32-32z"/></svg></span>
+                
+                0.1.1
+            </a>
+        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                    <div class="pure-g">
+                        <div class="pure-u-1">
+                            <ul class="pure-menu-list">
+                                <li>
+                                    <a href="/crate/rand/0.8.5" class="pure-menu-link">
+                                        <b>100%</b>
+                                        of the crate is documented
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div></div>
+        </li><li class="pure-menu-item pure-menu-has-children">
+        <a href="#" class="pure-menu-link" aria-label="Platform">
+            <span class="fa-svg " aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M308.5 135.3c7.1-6.3 9.9-16.2 6.2-25c-2.3-5.3-4.8-10.5-7.6-15.5L304 89.4c-3-5-6.3-9.9-9.8-14.6c-5.7-7.6-15.7-10.1-24.7-7.1l-28.2 9.3c-10.7-8.8-23-16-36.2-20.9L199 27.1c-1.9-9.3-9.1-16.7-18.5-17.8C173.7 8.4 166.9 8 160 8s-13.7 .4-20.4 1.2c-9.4 1.1-16.6 8.6-18.5 17.8L115 56.1c-13.3 5-25.5 12.1-36.2 20.9L50.5 67.8c-9-3-19-.5-24.7 7.1c-3.5 4.7-6.8 9.6-9.9 14.6l-3 5.3c-2.8 5-5.3 10.2-7.6 15.6c-3.7 8.7-.9 18.6 6.2 25l22.2 19.8C32.6 161.9 32 168.9 32 176s.6 14.1 1.7 20.9L11.5 216.7c-7.1 6.3-9.9 16.2-6.2 25c2.3 5.3 4.8 10.5 7.6 15.6l3 5.2c3 5.1 6.3 9.9 9.9 14.6c5.7 7.6 15.7 10.1 24.7 7.1l28.2-9.3c10.7 8.8 23 16 36.2 20.9l6.1 29.1c1.9 9.3 9.1 16.7 18.5 17.8c6.7 .8 13.5 1.2 20.4 1.2s13.7-.4 20.4-1.2c9.4-1.1 16.6-8.6 18.5-17.8l6.1-29.1c13.3-5 25.5-12.1 36.2-20.9l28.2 9.3c9 3 19 .5 24.7-7.1c3.5-4.7 6.8-9.5 9.8-14.6l3.1-5.4c2.8-5 5.3-10.2 7.6-15.5c3.7-8.7 .9-18.6-6.2-25l-22.2-19.8c1.1-6.8 1.7-13.8 1.7-20.9s-.6-14.1-1.7-20.9l22.2-19.8zM208 176c0 26.5-21.5 48-48 48s-48-21.5-48-48s21.5-48 48-48s48 21.5 48 48zM504.7 500.5c6.3 7.1 16.2 9.9 25 6.2c5.3-2.3 10.5-4.8 15.5-7.6l5.4-3.1c5-3 9.9-6.3 14.6-9.8c7.6-5.7 10.1-15.7 7.1-24.7l-9.3-28.2c8.8-10.7 16-23 20.9-36.2l29.1-6.1c9.3-1.9 16.7-9.1 17.8-18.5c.8-6.7 1.2-13.5 1.2-20.4s-.4-13.7-1.2-20.4c-1.1-9.4-8.6-16.6-17.8-18.5L583.9 307c-5-13.3-12.1-25.5-20.9-36.2l9.3-28.2c3-9 .5-19-7.1-24.7c-4.7-3.5-9.6-6.8-14.6-9.9l-5.3-3c-5-2.8-10.2-5.3-15.6-7.6c-8.7-3.7-18.6-.9-25 6.2l-19.8 22.2c-6.8-1.1-13.8-1.7-20.9-1.7s-14.1 .6-20.9 1.7l-19.8-22.2c-6.3-7.1-16.2-9.9-25-6.2c-5.3 2.3-10.5 4.8-15.6 7.6l-5.2 3c-5.1 3-9.9 6.3-14.6 9.9c-7.6 5.7-10.1 15.7-7.1 24.7l9.3 28.2c-8.8 10.7-16 23-20.9 36.2L315.1 313c-9.3 1.9-16.7 9.1-17.8 18.5c-.8 6.7-1.2 13.5-1.2 20.4s.4 13.7 1.2 20.4c1.1 9.4 8.6 16.6 17.8 18.5l29.1 6.1c5 13.3 12.1 25.5 20.9 36.2l-9.3 28.2c-3 9-.5 19 7.1 24.7c4.7 3.5 9.5 6.8 14.6 9.8l5.4 3.1c5 2.8 10.2 5.3 15.5 7.6c8.7 3.7 18.6 .9 25-6.2l19.8-22.2c6.8 1.1 13.8 1.7 20.9 1.7s14.1-.6 20.9-1.7l19.8 22.2zM464 400c-26.5 0-48-21.5-48-48s21.5-48 48-48s48 21.5 48 48s-21.5 48-48 48z"/></svg></span>
+            <span class="title">Platform</span>
+        </a>
+
+        
+        <ul class="pure-menu-children"><li class="pure-menu-item">
+                    <a href="/crate/rand/0.8.5/target-redirect/x86_64-unknown-linux-gnu/rand/struct.Error.html" class="pure-menu-link" data-fragment="retain" rel="nofollow">x86_64-unknown-linux-gnu</a>
+                </li><li class="pure-menu-item">
+                    <a href="/crate/rand/0.8.5/target-redirect/i686-unknown-linux-gnu/rand/struct.Error.html" class="pure-menu-link" data-fragment="retain" rel="nofollow">i686-unknown-linux-gnu</a>
+                </li><li class="pure-menu-item">
+                    <a href="/crate/rand/0.8.5/target-redirect/i686-pc-windows-msvc/rand/struct.Error.html" class="pure-menu-link" data-fragment="retain" rel="nofollow">i686-pc-windows-msvc</a>
+                </li><li class="pure-menu-item">
+                    <a href="/crate/rand/0.8.5/target-redirect/x86_64-apple-darwin/rand/struct.Error.html" class="pure-menu-link" data-fragment="retain" rel="nofollow">x86_64-apple-darwin</a>
+                </li><li class="pure-menu-item">
+                    <a href="/crate/rand/0.8.5/target-redirect/x86_64-pc-windows-msvc/rand/struct.Error.html" class="pure-menu-link" data-fragment="retain" rel="nofollow">x86_64-pc-windows-msvc</a>
+                </li></ul>
+    </li><li class="pure-menu-item">
+        <a href="/crate/rand/0.8.5/features" title="Browse available feature flags of rand-0.8.5" class="pure-menu-link">
+            <span class="fa-svg " aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M64 32V480c0 17.7-14.3 32-32 32s-32-14.3-32-32V32C0 14.3 14.3 0 32 0S64 14.3 64 32zm40.8 302.8c-3 .9-6 1.7-8.8 2.6V13.5C121.5 6.4 153 0 184 0c36.5 0 68.3 9.1 95.6 16.9l1.3 .4C309.4 25.4 333.3 32 360 32c26.8 0 52.9-6.8 73-14.1c9.9-3.6 17.9-7.2 23.4-9.8c2.7-1.3 4.8-2.4 6.2-3.1c.7-.4 1.1-.6 1.4-.8l.2-.1c9.9-5.6 22.1-5.6 31.9 .2S512 20.6 512 32V288c0 12.1-6.8 23.2-17.7 28.6L480 288c14.3 28.6 14.3 28.6 14.3 28.6l0 0 0 0-.1 0-.2 .1-.7 .4c-.6 .3-1.5 .7-2.5 1.2c-2.2 1-5.2 2.4-9 4c-7.7 3.3-18.5 7.6-31.5 11.9C424.5 342.9 388.8 352 352 352c-37 0-65.2-9.4-89-17.3l-1-.3c-24-8-43.7-14.4-70-14.4c-27.5 0-60.1 7-87.2 14.8z"/></svg></span>
+            <span class="title">Feature flags</span>
+        </a>
+    </li>
+    
+</ul><div class="spacer"></div>
+                
+                <ul class="pure-menu-list">
+                    <li class="pure-menu-item pure-menu-has-children">
+                        <a href="#" class="pure-menu-link" aria-label="Rust">Rust</a>
+                        <ul class="pure-menu-children">
+                            
+    <li class="pure-menu-item">
+        <a class="pure-menu-link " href="https:&#x2F;&#x2F;docs.rs&#x2F;about" target="_blank">
+            About docs.rs
+        </a>
+    </li>
+
+                            
+    <li class="pure-menu-item">
+        <a class="pure-menu-link " href="https:&#x2F;&#x2F;foundation.rust-lang.org&#x2F;policies&#x2F;privacy-policy&#x2F;#docs.rs" target="_blank">
+            Privacy policy
+        </a>
+    </li>
+
+                            
+    <li class="pure-menu-item">
+        <a class="pure-menu-link " href="https:&#x2F;&#x2F;www.rust-lang.org&#x2F;" target="_blank">
+            Rust website
+        </a>
+    </li>
+
+                            
+    <li class="pure-menu-item">
+        <a class="pure-menu-link " href="https:&#x2F;&#x2F;doc.rust-lang.org&#x2F;book&#x2F;" target="_blank">
+            The Book
+        </a>
+    </li>
+
+
+                            
+    <li class="pure-menu-item">
+        <a class="pure-menu-link " href="https:&#x2F;&#x2F;doc.rust-lang.org&#x2F;std&#x2F;" target="_blank">
+            Standard Library API Reference
+        </a>
+    </li>
+
+
+                            
+    <li class="pure-menu-item">
+        <a class="pure-menu-link " href="https:&#x2F;&#x2F;doc.rust-lang.org&#x2F;rust-by-example&#x2F;" target="_blank">
+            Rust by Example
+        </a>
+    </li>
+
+
+                            
+    <li class="pure-menu-item">
+        <a class="pure-menu-link " href="https:&#x2F;&#x2F;doc.rust-lang.org&#x2F;cargo&#x2F;guide&#x2F;" target="_blank">
+            The Cargo Guide
+        </a>
+    </li>
+
+
+                            
+    <li class="pure-menu-item">
+        <a class="pure-menu-link " href="https:&#x2F;&#x2F;doc.rust-lang.org&#x2F;nightly&#x2F;clippy" target="_blank">
+            Clippy Documentation
+        </a>
+    </li>
+
+                        </ul>
+                    </li>
+                </ul>
+                
+                <div id="search-input-nav">
+                    <label for="nav-search">
+                        <span class="fa-svg " aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352c79.5 0 144-64.5 144-144s-64.5-144-144-144S64 128.5 64 208s64.5 144 144 144z"/></svg></span>
+                    </label>
+
+                    
+                    
+                    <input id="nav-search" name="query" type="text" aria-label="Find crate by search query" tabindex="-1"
+                        placeholder="Find crate">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="rustdoc struct container-rustdoc" id="rustdoc_body_wrapper" tabindex="-1"><script async src="/-/static/menu.js?0-6-0-54cb6675-2023-02-22"></script>
+<script async src="/-/static/index.js?0-6-0-54cb6675-2023-02-22"></script>
+
+<iframe loading="lazy" src="/-/storage-change-detection.html" width="0" height="0" style="display: none"></iframe>
+<!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../rand/index.html"><div class="logo-container"><img src="https://www.rust-lang.org/logos/rust-logo-128x128-blk.png" alt="logo"></div>
+        </a><h2 class="location"></h2>
+    </nav>
+    <nav class="sidebar"><a class="sidebar-logo" href="../rand/index.html"><div class="logo-container">
+                    <img src="https://www.rust-lang.org/logos/rust-logo-128x128-blk.png" alt="logo"></div>
+        </a><h2 class="location"><a href="#">Error</a></h2><div class="sidebar-elems"><div class="block items"><h3 class="sidebar-title"><a href="#implementations">Associated Constants</a></h3><div class="sidebar-links"><a href="#associatedconstant.CUSTOM_START">CUSTOM_START</a><a href="#associatedconstant.INTERNAL_START">INTERNAL_START</a></div><h3 class="sidebar-title"><a href="#implementations">Methods</a></h3><div class="sidebar-links"><a href="#method.code">code</a><a href="#method.inner">inner</a><a href="#method.new">new</a><a href="#method.raw_os_error">raw_os_error</a><a href="#method.take_inner">take_inner</a></div><h3 class="sidebar-title"><a href="#trait-implementations">Trait Implementations</a></h3><div class="sidebar-links"><a href="#impl-Debug">Debug</a><a href="#impl-Display">Display</a><a href="#impl-Error">Error</a><a href="#impl-From%3CError%3E">From&lt;Error&gt;</a><a href="#impl-From%3CNonZeroU32%3E">From&lt;NonZeroU32&gt;</a></div><h3 class="sidebar-title"><a href="#synthetic-implementations">Auto Trait Implementations</a></h3><div class="sidebar-links"><a href="#impl-RefUnwindSafe">!RefUnwindSafe</a><a href="#impl-Send">Send</a><a href="#impl-Sync">Sync</a><a href="#impl-Unpin">Unpin</a><a href="#impl-UnwindSafe">!UnwindSafe</a></div><h3 class="sidebar-title"><a href="#blanket-implementations">Blanket Implementations</a></h3><div class="sidebar-links"><a href="#impl-Any">Any</a><a href="#impl-Borrow%3CT%3E">Borrow&lt;T&gt;</a><a href="#impl-BorrowMut%3CT%3E">BorrowMut&lt;T&gt;</a><a href="#impl-Cast%3CU%3E">Cast&lt;U&gt;</a><a href="#impl-From%3CT%3E">From&lt;T&gt;</a><a href="#impl-FromBits%3CT%3E">FromBits&lt;T&gt;</a><a href="#impl-FromCast%3CT%3E">FromCast&lt;T&gt;</a><a href="#impl-Into%3CU%3E">Into&lt;U&gt;</a><a href="#impl-IntoBits%3CU%3E">IntoBits&lt;U&gt;</a><a href="#impl-ToString">ToString</a><a href="#impl-TryFrom%3CU%3E">TryFrom&lt;U&gt;</a><a href="#impl-TryInto%3CU%3E">TryInto&lt;U&gt;</a><a href="#impl-VZip%3CV%3E">VZip&lt;V&gt;</a></div></div><h2 class="location"><a href="index.html">In rand</a></h2><div id="sidebar-vars" data-name="Error" data-ty="struct" data-relpath=""></div><script defer src="sidebar-items-20220213-1.60.0-nightly-1e12aef3f.js"></script></div></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../rand/index.html">
+                        <img src="https://www.rust-lang.org/logos/rust-logo-128x128-blk.png" alt="logo"></a><nav class="sub"><div class="theme-picker hidden"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu" title="themes"><img width="22" height="22" alt="Pick another theme!" src="/brush-20220213-1.60.0-nightly-1e12aef3f.svg"></button><div id="theme-choices" role="menu"></div></div><form class="search-form"><div class="search-container"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><button type="button" id="help-button" title="help">?</button><a id="settings-menu" href="../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="/wheel-20220213-1.60.0-nightly-1e12aef3f.svg"></a></div></form></nav></div><section id="main-content" class="content"><div class="main-heading">
+    <h1 class="fqn"><span class="in-band">Struct <a href="index.html">rand</a>::<wbr><a class="struct" href="#">Error</a><button id="copy-path" onclick="copy_path(this)" title="Copy item path to clipboard"><img src="/clipboard-20220213-1.60.0-nightly-1e12aef3f.svg" width="19" height="18" alt="Copy item path"></button></span></h1><span class="out-of-band"><a class="srclink" href="https://rust-random.github.io/rand/src/rand_core/error.rs.html#21-26">source</a> · <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">[<span class="inner">&#x2212;</span>]</a></span></div><div class="docblock item-decl"><pre class="rust struct"><code>pub struct Error { /* private fields */ }</code></pre></div><details class="rustdoc-toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>Error type of random number generators</p>
+<p>In order to be compatible with <code>std</code> and <code>no_std</code>, this type has two
+possible implementations: with <code>std</code> a boxed <code>Error</code> trait object is stored,
+while with <code>no_std</code> we merely store an error code.</p>
+</div></details><h2 id="implementations" class="small-section-header">Implementations<a href="#implementations" class="anchor"></a></h2><details class="rustdoc-toggle implementors-toggle" open><summary><section id="impl" class="impl has-srclink"><span class="rightside"><a class="srclink" href="https://rust-random.github.io/rand/src/rand_core/error.rs.html#28-116">source</a></span><a href="#impl" class="anchor"></a><h3 class="code-header in-band">impl <a class="struct" href="struct.Error.html" title="struct rand::Error">Error</a></h3></section></summary><div class="impl-items"><details class="rustdoc-toggle" open><summary><section id="associatedconstant.CUSTOM_START" class="associatedconstant has-srclink"><span class="rightside"><a class="srclink" href="https://rust-random.github.io/rand/src/rand_core/error.rs.html#36">source</a></span><a href="#associatedconstant.CUSTOM_START" class="anchor"></a><h4 class="code-header">pub const <a href="#associatedconstant.CUSTOM_START" class="constant">CUSTOM_START</a>: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a></h4></section></summary><div class="docblock"><p>Codes at or above this point can be used by users to define their own
+custom errors.</p>
+<p>This has a fixed value of <code>(1 &lt;&lt; 31) + (1 &lt;&lt; 30) = 0xC000_0000</code>,
+therefore the number of values available for custom codes is <code>1 &lt;&lt; 30</code>.</p>
+<p>This is identical to <a href="https://docs.rs/getrandom/latest/getrandom/struct.Error.html#associatedconstant.CUSTOM_START"><code>getrandom::Error::CUSTOM_START</code></a>.</p>
+</div></details><details class="rustdoc-toggle" open><summary><section id="associatedconstant.INTERNAL_START" class="associatedconstant has-srclink"><span class="rightside"><a class="srclink" href="https://rust-random.github.io/rand/src/rand_core/error.rs.html#42">source</a></span><a href="#associatedconstant.INTERNAL_START" class="anchor"></a><h4 class="code-header">pub const <a href="#associatedconstant.INTERNAL_START" class="constant">INTERNAL_START</a>: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a></h4></section></summary><div class="docblock"><p>Codes below this point represent OS Errors (i.e. positive i32 values).
+Codes at or above this point, but below <a href="struct.Error.html#associatedconstant.CUSTOM_START" title="Error::CUSTOM_START"><code>Error::CUSTOM_START</code></a> are
+reserved for use by the <code>rand</code> and <code>getrandom</code> crates.</p>
+<p>This is identical to <a href="https://docs.rs/getrandom/latest/getrandom/struct.Error.html#associatedconstant.INTERNAL_START"><code>getrandom::Error::INTERNAL_START</code></a>.</p>
+</div></details><details class="rustdoc-toggle method-toggle" open><summary><section id="method.new" class="method has-srclink"><span class="rightside"><a class="srclink" href="https://rust-random.github.io/rand/src/rand_core/error.rs.html#52-54">source</a></span><a href="#method.new" class="anchor"></a><h4 class="code-header">pub fn <a href="#method.new" class="fnname">new</a>&lt;E&gt;(err: E) -&gt; <a class="struct" href="struct.Error.html" title="struct rand::Error">Error</a> <span class="where fmt-newline">where<br>&nbsp;&nbsp;&nbsp;&nbsp;E: <a class="trait" href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html" title="trait core::convert::Into">Into</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/boxed/struct.Box.html" title="struct alloc::boxed::Box">Box</a>&lt;dyn <a class="trait" href="https://doc.rust-lang.org/nightly/std/error/trait.Error.html" title="trait std::error::Error">Error</a> + <a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Send.html" title="trait core::marker::Send">Send</a> + <a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sync.html" title="trait core::marker::Sync">Sync</a> + 'static, <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/alloc/struct.Global.html" title="struct alloc::alloc::Global">Global</a>&gt;&gt;,&nbsp;</span></h4></section></summary><div class="docblock"><p>Construct from any type supporting <code>std::error::Error</code></p>
+<p>Available only when configured with <code>std</code>.</p>
+<p>See also <code>From&lt;NonZeroU32&gt;</code>, which is available with and without <code>std</code>.</p>
+</div></details><details class="rustdoc-toggle method-toggle" open><summary><section id="method.inner" class="method has-srclink"><span class="rightside"><a class="srclink" href="https://rust-random.github.io/rand/src/rand_core/error.rs.html#66">source</a></span><a href="#method.inner" class="anchor"></a><h4 class="code-header">pub fn <a href="#method.inner" class="fnname">inner</a>(&amp;self) -&gt; &amp;(dyn <a class="trait" href="https://doc.rust-lang.org/nightly/std/error/trait.Error.html" title="trait std::error::Error">Error</a> + <a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Send.html" title="trait core::marker::Send">Send</a> + <a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sync.html" title="trait core::marker::Sync">Sync</a> + 'static)</h4></section></summary><div class="docblock"><p>Reference the inner error (<code>std</code> only)</p>
+<p>When configured with <code>std</code>, this is a trivial operation and never
+panics. Without <code>std</code>, this method is simply unavailable.</p>
+</div></details><details class="rustdoc-toggle method-toggle" open><summary><section id="method.take_inner" class="method has-srclink"><span class="rightside"><a class="srclink" href="https://rust-random.github.io/rand/src/rand_core/error.rs.html#77">source</a></span><a href="#method.take_inner" class="anchor"></a><h4 class="code-header">pub fn <a href="#method.take_inner" class="fnname">take_inner</a>(self) -&gt; <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/boxed/struct.Box.html" title="struct alloc::boxed::Box">Box</a>&lt;dyn <a class="trait" href="https://doc.rust-lang.org/nightly/std/error/trait.Error.html" title="trait std::error::Error">Error</a> + <a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Send.html" title="trait core::marker::Send">Send</a> + <a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sync.html" title="trait core::marker::Sync">Sync</a> + 'static, <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/alloc/struct.Global.html" title="struct alloc::alloc::Global">Global</a>&gt;</h4></section></summary><div class="docblock"><p>Unwrap the inner error (<code>std</code> only)</p>
+<p>When configured with <code>std</code>, this is a trivial operation and never
+panics. Without <code>std</code>, this method is simply unavailable.</p>
+</div></details><details class="rustdoc-toggle method-toggle" open><summary><section id="method.raw_os_error" class="method has-srclink"><span class="rightside"><a class="srclink" href="https://rust-random.github.io/rand/src/rand_core/error.rs.html#87">source</a></span><a href="#method.raw_os_error" class="anchor"></a><h4 class="code-header">pub fn <a href="#method.raw_os_error" class="fnname">raw_os_error</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>&gt;</h4></section></summary><div class="docblock"><p>Extract the raw OS error code (if this error came from the OS)</p>
+<p>This method is identical to <code>std::io::Error::raw_os_error()</code>, except
+that it works in <code>no_std</code> contexts. If this method returns <code>None</code>, the
+error value can still be formatted via the <code>Diplay</code> implementation.</p>
+</div></details><details class="rustdoc-toggle method-toggle" open><summary><section id="method.code" class="method has-srclink"><span class="rightside"><a class="srclink" href="https://rust-random.github.io/rand/src/rand_core/error.rs.html#106">source</a></span><a href="#method.code" class="anchor"></a><h4 class="code-header">pub fn <a href="#method.code" class="fnname">code</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/core/num/nonzero/struct.NonZeroU32.html" title="struct core::num::nonzero::NonZeroU32">NonZeroU32</a>&gt;</h4></section></summary><div class="docblock"><p>Retrieve the error code, if any.</p>
+<p>If this <code>Error</code> was constructed via <code>From&lt;NonZeroU32&gt;</code>, then this method
+will return this <code>NonZeroU32</code> code (for <code>no_std</code> this is always the
+case). Otherwise, this method will return <code>None</code>.</p>
+</div></details></div></details><h2 id="trait-implementations" class="small-section-header">Trait Implementations<a href="#trait-implementations" class="anchor"></a></h2><div id="trait-implementations-list"><details class="rustdoc-toggle implementors-toggle" open><summary><section id="impl-Debug" class="impl has-srclink"><span class="rightside"><a class="srclink" href="https://rust-random.github.io/rand/src/rand_core/error.rs.html#118-133">source</a></span><a href="#impl-Debug" class="anchor"></a><h3 class="code-header in-band">impl <a class="trait" href="https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html" title="trait core::fmt::Debug">Debug</a> for <a class="struct" href="struct.Error.html" title="struct rand::Error">Error</a></h3></section></summary><div class="impl-items"><details class="rustdoc-toggle method-toggle" open><summary><section id="method.fmt-1" class="method trait-impl has-srclink"><span class="rightside"><a class="srclink" href="https://rust-random.github.io/rand/src/rand_core/error.rs.html#119">source</a></span><a href="#method.fmt-1" class="anchor"></a><h4 class="code-header">pub fn <a href="https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#tymethod.fmt" class="fnname">fmt</a>(&amp;self, f: &amp;mut <a class="struct" href="https://doc.rust-lang.org/nightly/core/fmt/struct.Formatter.html" title="struct core::fmt::Formatter">Formatter</a>&lt;'_&gt;) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.unit.html">()</a>, <a class="struct" href="https://doc.rust-lang.org/nightly/core/fmt/struct.Error.html" title="struct core::fmt::Error">Error</a>&gt;</h4></section></summary><div class='docblock'><p>Formats the value using the given formatter. <a href="https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#tymethod.fmt">Read more</a></p>
+</div></details></div></details><details class="rustdoc-toggle implementors-toggle" open><summary><section id="impl-Display" class="impl has-srclink"><span class="rightside"><a class="srclink" href="https://rust-random.github.io/rand/src/rand_core/error.rs.html#135-150">source</a></span><a href="#impl-Display" class="anchor"></a><h3 class="code-header in-band">impl <a class="trait" href="https://doc.rust-lang.org/nightly/core/fmt/trait.Display.html" title="trait core::fmt::Display">Display</a> for <a class="struct" href="struct.Error.html" title="struct rand::Error">Error</a></h3></section></summary><div class="impl-items"><details class="rustdoc-toggle method-toggle" open><summary><section id="method.fmt" class="method trait-impl has-srclink"><span class="rightside"><a class="srclink" href="https://rust-random.github.io/rand/src/rand_core/error.rs.html#136">source</a></span><a href="#method.fmt" class="anchor"></a><h4 class="code-header">pub fn <a href="https://doc.rust-lang.org/nightly/core/fmt/trait.Display.html#tymethod.fmt" class="fnname">fmt</a>(&amp;self, f: &amp;mut <a class="struct" href="https://doc.rust-lang.org/nightly/core/fmt/struct.Formatter.html" title="struct core::fmt::Formatter">Formatter</a>&lt;'_&gt;) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.unit.html">()</a>, <a class="struct" href="https://doc.rust-lang.org/nightly/core/fmt/struct.Error.html" title="struct core::fmt::Error">Error</a>&gt;</h4></section></summary><div class='docblock'><p>Formats the value using the given formatter. <a href="https://doc.rust-lang.org/nightly/core/fmt/trait.Display.html#tymethod.fmt">Read more</a></p>
+</div></details></div></details><details class="rustdoc-toggle implementors-toggle" open><summary><section id="impl-Error" class="impl has-srclink"><span class="rightside"><a class="srclink" href="https://rust-random.github.io/rand/src/rand_core/error.rs.html#186-191">source</a></span><a href="#impl-Error" class="anchor"></a><h3 class="code-header in-band">impl <a class="trait" href="https://doc.rust-lang.org/nightly/std/error/trait.Error.html" title="trait std::error::Error">Error</a> for <a class="struct" href="struct.Error.html" title="struct rand::Error">Error</a></h3></section></summary><div class="impl-items"><details class="rustdoc-toggle method-toggle" open><summary><section id="method.source" class="method trait-impl has-srclink"><span class="rightside"><a class="srclink" href="https://rust-random.github.io/rand/src/rand_core/error.rs.html#188">source</a></span><a href="#method.source" class="anchor"></a><h4 class="code-header">pub fn <a href="https://doc.rust-lang.org/nightly/std/error/trait.Error.html#method.source" class="fnname">source</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;&amp;(dyn <a class="trait" href="https://doc.rust-lang.org/nightly/std/error/trait.Error.html" title="trait std::error::Error">Error</a> + 'static)&gt;</h4></section></summary><div class='docblock'><p>The lower-level source of this error, if any. <a href="https://doc.rust-lang.org/nightly/std/error/trait.Error.html#method.source">Read more</a></p>
+</div></details><details class="rustdoc-toggle method-toggle" open><summary><section id="method.backtrace" class="method trait-impl has-srclink"><span class="rightside"><a class="srclink" href="https://doc.rust-lang.org/nightly/src/std/error.rs.html#135">source</a></span><a href="#method.backtrace" class="anchor"></a><h4 class="code-header">fn <a href="https://doc.rust-lang.org/nightly/std/error/trait.Error.html#method.backtrace" class="fnname">backtrace</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;&amp;<a class="struct" href="https://doc.rust-lang.org/nightly/std/backtrace/struct.Backtrace.html" title="struct std::backtrace::Backtrace">Backtrace</a>&gt;</h4></section></summary><div class="item-info"><div class="stab unstable"><span class="emoji">🔬</span> This is a nightly-only experimental API. (<code>backtrace</code>)</div></div><div class='docblock'><p>Returns a stack backtrace, if available, of where this error occurred. <a href="https://doc.rust-lang.org/nightly/std/error/trait.Error.html#method.backtrace">Read more</a></p>
+</div></details><details class="rustdoc-toggle method-toggle" open><summary><section id="method.description" class="method trait-impl has-srclink"><span class="rightside"><span class="since" title="Stable since Rust version 1.0.0">1.0.0</span> · <a class="srclink" href="https://doc.rust-lang.org/nightly/src/std/error.rs.html#147">source</a></span><a href="#method.description" class="anchor"></a><h4 class="code-header">fn <a href="https://doc.rust-lang.org/nightly/std/error/trait.Error.html#method.description" class="fnname">description</a>(&amp;self) -&gt; &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a></h4></section></summary><div class="item-info"><div class="stab deprecated"><span class="emoji">👎</span> Deprecated since 1.42.0: <p>use the Display impl or to_string()</p>
+</div></div><div class='docblock'> <a href="https://doc.rust-lang.org/nightly/std/error/trait.Error.html#method.description">Read more</a></div></details><details class="rustdoc-toggle method-toggle" open><summary><section id="method.cause" class="method trait-impl has-srclink"><span class="rightside"><span class="since" title="Stable since Rust version 1.0.0">1.0.0</span> · <a class="srclink" href="https://doc.rust-lang.org/nightly/src/std/error.rs.html#157">source</a></span><a href="#method.cause" class="anchor"></a><h4 class="code-header">fn <a href="https://doc.rust-lang.org/nightly/std/error/trait.Error.html#method.cause" class="fnname">cause</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;&amp;dyn <a class="trait" href="https://doc.rust-lang.org/nightly/std/error/trait.Error.html" title="trait std::error::Error">Error</a>&gt;</h4></section></summary><div class="item-info"><div class="stab deprecated"><span class="emoji">👎</span> Deprecated since 1.33.0: <p>replaced by Error::source, which can support downcasting</p>
+</div></div></details></div></details><details class="rustdoc-toggle implementors-toggle" open><summary><section id="impl-From%3CError%3E" class="impl has-srclink"><span class="rightside"><a class="srclink" href="https://rust-random.github.io/rand/src/rand_core/error.rs.html#169-183">source</a></span><a href="#impl-From%3CError%3E" class="anchor"></a><h3 class="code-header in-band">impl <a class="trait" href="https://doc.rust-lang.org/nightly/core/convert/trait.From.html" title="trait core::convert::From">From</a>&lt;<a class="struct" href="https://docs.rs/getrandom/0.2.3/getrandom/error/struct.Error.html" title="struct getrandom::error::Error">Error</a>&gt; for <a class="struct" href="struct.Error.html" title="struct rand::Error">Error</a></h3></section></summary><div class="impl-items"><details class="rustdoc-toggle method-toggle" open><summary><section id="method.from-1" class="method trait-impl has-srclink"><span class="rightside"><a class="srclink" href="https://rust-random.github.io/rand/src/rand_core/error.rs.html#171">source</a></span><a href="#method.from-1" class="anchor"></a><h4 class="code-header">pub fn <a href="https://doc.rust-lang.org/nightly/core/convert/trait.From.html#tymethod.from" class="fnname">from</a>(error: <a class="struct" href="https://docs.rs/getrandom/0.2.3/getrandom/error/struct.Error.html" title="struct getrandom::error::Error">Error</a>) -&gt; <a class="struct" href="struct.Error.html" title="struct rand::Error">Error</a></h4></section></summary><div class='docblock'><p>Performs the conversion.</p>
+</div></details></div></details><details class="rustdoc-toggle implementors-toggle" open><summary><section id="impl-From%3CNonZeroU32%3E" class="impl has-srclink"><span class="rightside"><a class="srclink" href="https://rust-random.github.io/rand/src/rand_core/error.rs.html#152-166">source</a></span><a href="#impl-From%3CNonZeroU32%3E" class="anchor"></a><h3 class="code-header in-band">impl <a class="trait" href="https://doc.rust-lang.org/nightly/core/convert/trait.From.html" title="trait core::convert::From">From</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/core/num/nonzero/struct.NonZeroU32.html" title="struct core::num::nonzero::NonZeroU32">NonZeroU32</a>&gt; for <a class="struct" href="struct.Error.html" title="struct rand::Error">Error</a></h3></section></summary><div class="impl-items"><details class="rustdoc-toggle method-toggle" open><summary><section id="method.from" class="method trait-impl has-srclink"><span class="rightside"><a class="srclink" href="https://rust-random.github.io/rand/src/rand_core/error.rs.html#154">source</a></span><a href="#method.from" class="anchor"></a><h4 class="code-header">pub fn <a href="https://doc.rust-lang.org/nightly/core/convert/trait.From.html#tymethod.from" class="fnname">from</a>(code: <a class="struct" href="https://doc.rust-lang.org/nightly/core/num/nonzero/struct.NonZeroU32.html" title="struct core::num::nonzero::NonZeroU32">NonZeroU32</a>) -&gt; <a class="struct" href="struct.Error.html" title="struct rand::Error">Error</a></h4></section></summary><div class='docblock'><p>Performs the conversion.</p>
+</div></details></div></details></div><h2 id="synthetic-implementations" class="small-section-header">Auto Trait Implementations<a href="#synthetic-implementations" class="anchor"></a></h2><div id="synthetic-implementations-list"><section id="impl-RefUnwindSafe" class="impl has-srclink"><a href="#impl-RefUnwindSafe" class="anchor"></a><h3 class="code-header in-band">impl !<a class="trait" href="https://doc.rust-lang.org/nightly/core/panic/unwind_safe/trait.RefUnwindSafe.html" title="trait core::panic::unwind_safe::RefUnwindSafe">RefUnwindSafe</a> for <a class="struct" href="struct.Error.html" title="struct rand::Error">Error</a></h3></section><section id="impl-Send" class="impl has-srclink"><a href="#impl-Send" class="anchor"></a><h3 class="code-header in-band">impl <a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Send.html" title="trait core::marker::Send">Send</a> for <a class="struct" href="struct.Error.html" title="struct rand::Error">Error</a></h3></section><section id="impl-Sync" class="impl has-srclink"><a href="#impl-Sync" class="anchor"></a><h3 class="code-header in-band">impl <a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sync.html" title="trait core::marker::Sync">Sync</a> for <a class="struct" href="struct.Error.html" title="struct rand::Error">Error</a></h3></section><section id="impl-Unpin" class="impl has-srclink"><a href="#impl-Unpin" class="anchor"></a><h3 class="code-header in-band">impl <a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Unpin.html" title="trait core::marker::Unpin">Unpin</a> for <a class="struct" href="struct.Error.html" title="struct rand::Error">Error</a></h3></section><section id="impl-UnwindSafe" class="impl has-srclink"><a href="#impl-UnwindSafe" class="anchor"></a><h3 class="code-header in-band">impl !<a class="trait" href="https://doc.rust-lang.org/nightly/core/panic/unwind_safe/trait.UnwindSafe.html" title="trait core::panic::unwind_safe::UnwindSafe">UnwindSafe</a> for <a class="struct" href="struct.Error.html" title="struct rand::Error">Error</a></h3></section></div><h2 id="blanket-implementations" class="small-section-header">Blanket Implementations<a href="#blanket-implementations" class="anchor"></a></h2><div id="blanket-implementations-list"><details class="rustdoc-toggle implementors-toggle" open><summary><section id="impl-Any" class="impl has-srclink"><span class="rightside"><a class="srclink" href="https://doc.rust-lang.org/nightly/src/core/any.rs.html#132-136">source</a></span><a href="#impl-Any" class="anchor"></a><h3 class="code-header in-band">impl&lt;T&gt; <a class="trait" href="https://doc.rust-lang.org/nightly/core/any/trait.Any.html" title="trait core::any::Any">Any</a> for T <span class="where fmt-newline">where<br>&nbsp;&nbsp;&nbsp;&nbsp;T: 'static + ?<a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a>,&nbsp;</span></h3></section></summary><div class="impl-items"><details class="rustdoc-toggle method-toggle" open><summary><section id="method.type_id" class="method trait-impl has-srclink"><span class="rightside"><a class="srclink" href="https://doc.rust-lang.org/nightly/src/core/any.rs.html#133">source</a></span><a href="#method.type_id" class="anchor"></a><h4 class="code-header">pub fn <a href="https://doc.rust-lang.org/nightly/core/any/trait.Any.html#tymethod.type_id" class="fnname">type_id</a>(&amp;self) -&gt; <a class="struct" href="https://doc.rust-lang.org/nightly/core/any/struct.TypeId.html" title="struct core::any::TypeId">TypeId</a></h4></section></summary><div class='docblock'><p>Gets the <code>TypeId</code> of <code>self</code>. <a href="https://doc.rust-lang.org/nightly/core/any/trait.Any.html#tymethod.type_id">Read more</a></p>
+</div></details></div></details><details class="rustdoc-toggle implementors-toggle" open><summary><section id="impl-Borrow%3CT%3E" class="impl has-srclink"><span class="rightside"><a class="srclink" href="https://doc.rust-lang.org/nightly/src/core/borrow.rs.html#209-214">source</a></span><a href="#impl-Borrow%3CT%3E" class="anchor"></a><h3 class="code-header in-band">impl&lt;T&gt; <a class="trait" href="https://doc.rust-lang.org/nightly/core/borrow/trait.Borrow.html" title="trait core::borrow::Borrow">Borrow</a>&lt;T&gt; for T <span class="where fmt-newline">where<br>&nbsp;&nbsp;&nbsp;&nbsp;T: ?<a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a>,&nbsp;</span></h3></section></summary><div class="impl-items"><details class="rustdoc-toggle method-toggle" open><summary><section id="method.borrow" class="method trait-impl has-srclink"><span class="rightside"><span class="since" title="const unstable">const: <a href="https://github.com/rust-lang/rust/issues/91522" title="Tracking issue for const_borrow">unstable</a></span> · <a class="srclink" href="https://doc.rust-lang.org/nightly/src/core/borrow.rs.html#211">source</a></span><a href="#method.borrow" class="anchor"></a><h4 class="code-header">pub fn <a href="https://doc.rust-lang.org/nightly/core/borrow/trait.Borrow.html#tymethod.borrow" class="fnname">borrow</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>T</h4></section></summary><div class='docblock'><p>Immutably borrows from an owned value. <a href="https://doc.rust-lang.org/nightly/core/borrow/trait.Borrow.html#tymethod.borrow">Read more</a></p>
+</div></details></div></details><details class="rustdoc-toggle implementors-toggle" open><summary><section id="impl-BorrowMut%3CT%3E" class="impl has-srclink"><span class="rightside"><a class="srclink" href="https://doc.rust-lang.org/nightly/src/core/borrow.rs.html#218-222">source</a></span><a href="#impl-BorrowMut%3CT%3E" class="anchor"></a><h3 class="code-header in-band">impl&lt;T&gt; <a class="trait" href="https://doc.rust-lang.org/nightly/core/borrow/trait.BorrowMut.html" title="trait core::borrow::BorrowMut">BorrowMut</a>&lt;T&gt; for T <span class="where fmt-newline">where<br>&nbsp;&nbsp;&nbsp;&nbsp;T: ?<a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a>,&nbsp;</span></h3></section></summary><div class="impl-items"><details class="rustdoc-toggle method-toggle" open><summary><section id="method.borrow_mut" class="method trait-impl has-srclink"><span class="rightside"><span class="since" title="const unstable">const: <a href="https://github.com/rust-lang/rust/issues/91522" title="Tracking issue for const_borrow">unstable</a></span> · <a class="srclink" href="https://doc.rust-lang.org/nightly/src/core/borrow.rs.html#219">source</a></span><a href="#method.borrow_mut" class="anchor"></a><h4 class="code-header">pub fn <a href="https://doc.rust-lang.org/nightly/core/borrow/trait.BorrowMut.html#tymethod.borrow_mut" class="fnname">borrow_mut</a>(&amp;mut self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;mut </a>T</h4></section></summary><div class='docblock'><p>Mutably borrows from an owned value. <a href="https://doc.rust-lang.org/nightly/core/borrow/trait.BorrowMut.html#tymethod.borrow_mut">Read more</a></p>
+</div></details></div></details><details class="rustdoc-toggle implementors-toggle" open><summary><section id="impl-Cast%3CU%3E" class="impl has-srclink"><span class="rightside"><a class="srclink" href="https://docs.rs/packed_simd_2/0.3.7/x86_64-unknown-linux-gnu/src/packed_simd_2/api/cast.rs.html#71-79">source</a></span><a href="#impl-Cast%3CU%3E" class="anchor"></a><h3 class="code-header in-band">impl&lt;T, U&gt; <a class="trait" href="https://docs.rs/packed_simd_2/0.3.7/x86_64-unknown-linux-gnu/packed_simd_2/api/cast/trait.Cast.html" title="trait packed_simd_2::api::cast::Cast">Cast</a>&lt;U&gt; for T <span class="where fmt-newline">where<br>&nbsp;&nbsp;&nbsp;&nbsp;U: <a class="trait" href="https://docs.rs/packed_simd_2/0.3.7/x86_64-unknown-linux-gnu/packed_simd_2/api/cast/trait.FromCast.html" title="trait packed_simd_2::api::cast::FromCast">FromCast</a>&lt;T&gt;,&nbsp;</span></h3></section></summary><div class="impl-items"><details class="rustdoc-toggle method-toggle" open><summary><section id="method.cast" class="method trait-impl has-srclink"><span class="rightside"><a class="srclink" href="https://docs.rs/packed_simd_2/0.3.7/x86_64-unknown-linux-gnu/src/packed_simd_2/api/cast.rs.html#76">source</a></span><a href="#method.cast" class="anchor"></a><h4 class="code-header">pub fn <a href="https://docs.rs/packed_simd_2/0.3.7/x86_64-unknown-linux-gnu/packed_simd_2/api/cast/trait.Cast.html#tymethod.cast" class="fnname">cast</a>(self) -&gt; U</h4></section></summary><div class='docblock'><p>Numeric cast from <code>self</code> to <code>T</code>.</p>
+</div></details></div></details><details class="rustdoc-toggle implementors-toggle" open><summary><section id="impl-From%3CT%3E" class="impl has-srclink"><span class="rightside"><a class="srclink" href="https://doc.rust-lang.org/nightly/src/core/convert/mod.rs.html#549-553">source</a></span><a href="#impl-From%3CT%3E" class="anchor"></a><h3 class="code-header in-band">impl&lt;T&gt; <a class="trait" href="https://doc.rust-lang.org/nightly/core/convert/trait.From.html" title="trait core::convert::From">From</a>&lt;T&gt; for T</h3></section></summary><div class="impl-items"><details class="rustdoc-toggle method-toggle" open><summary><section id="method.from-2" class="method trait-impl has-srclink"><span class="rightside"><span class="since" title="const unstable">const: <a href="https://github.com/rust-lang/rust/issues/88674" title="Tracking issue for const_convert">unstable</a></span> · <a class="srclink" href="https://doc.rust-lang.org/nightly/src/core/convert/mod.rs.html#550">source</a></span><a href="#method.from-2" class="anchor"></a><h4 class="code-header">pub fn <a href="https://doc.rust-lang.org/nightly/core/convert/trait.From.html#tymethod.from" class="fnname">from</a>(t: T) -&gt; T</h4></section></summary><div class='docblock'><p>Performs the conversion.</p>
+</div></details></div></details><details class="rustdoc-toggle implementors-toggle" open><summary><section id="impl-FromBits%3CT%3E" class="impl has-srclink"><span class="rightside"><a class="srclink" href="https://docs.rs/packed_simd_2/0.3.7/x86_64-unknown-linux-gnu/src/packed_simd_2/api/into_bits.rs.html#28-33">source</a></span><a href="#impl-FromBits%3CT%3E" class="anchor"></a><h3 class="code-header in-band">impl&lt;T&gt; <a class="trait" href="https://docs.rs/packed_simd_2/0.3.7/x86_64-unknown-linux-gnu/packed_simd_2/api/into_bits/trait.FromBits.html" title="trait packed_simd_2::api::into_bits::FromBits">FromBits</a>&lt;T&gt; for T</h3></section></summary><div class="impl-items"><details class="rustdoc-toggle method-toggle" open><summary><section id="method.from_bits" class="method trait-impl has-srclink"><span class="rightside"><a class="srclink" href="https://docs.rs/packed_simd_2/0.3.7/x86_64-unknown-linux-gnu/src/packed_simd_2/api/into_bits.rs.html#30">source</a></span><a href="#method.from_bits" class="anchor"></a><h4 class="code-header">pub fn <a href="https://docs.rs/packed_simd_2/0.3.7/x86_64-unknown-linux-gnu/packed_simd_2/api/into_bits/trait.FromBits.html#tymethod.from_bits" class="fnname">from_bits</a>(t: T) -&gt; T</h4></section></summary><div class='docblock'><p>Safe lossless bitwise transmute from <code>T</code> to <code>Self</code>.</p>
+</div></details></div></details><details class="rustdoc-toggle implementors-toggle" open><summary><section id="impl-FromCast%3CT%3E" class="impl has-srclink"><span class="rightside"><a class="srclink" href="https://docs.rs/packed_simd_2/0.3.7/x86_64-unknown-linux-gnu/src/packed_simd_2/api/cast.rs.html#82-87">source</a></span><a href="#impl-FromCast%3CT%3E" class="anchor"></a><h3 class="code-header in-band">impl&lt;T&gt; <a class="trait" href="https://docs.rs/packed_simd_2/0.3.7/x86_64-unknown-linux-gnu/packed_simd_2/api/cast/trait.FromCast.html" title="trait packed_simd_2::api::cast::FromCast">FromCast</a>&lt;T&gt; for T</h3></section></summary><div class="impl-items"><details class="rustdoc-toggle method-toggle" open><summary><section id="method.from_cast" class="method trait-impl has-srclink"><span class="rightside"><a class="srclink" href="https://docs.rs/packed_simd_2/0.3.7/x86_64-unknown-linux-gnu/src/packed_simd_2/api/cast.rs.html#84">source</a></span><a href="#method.from_cast" class="anchor"></a><h4 class="code-header">pub fn <a href="https://docs.rs/packed_simd_2/0.3.7/x86_64-unknown-linux-gnu/packed_simd_2/api/cast/trait.FromCast.html#tymethod.from_cast" class="fnname">from_cast</a>(t: T) -&gt; T</h4></section></summary><div class='docblock'><p>Numeric cast from <code>T</code> to <code>Self</code>.</p>
+</div></details></div></details><details class="rustdoc-toggle implementors-toggle" open><summary><section id="impl-Into%3CU%3E" class="impl has-srclink"><span class="rightside"><a class="srclink" href="https://doc.rust-lang.org/nightly/src/core/convert/mod.rs.html#537-544">source</a></span><a href="#impl-Into%3CU%3E" class="anchor"></a><h3 class="code-header in-band">impl&lt;T, U&gt; <a class="trait" href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html" title="trait core::convert::Into">Into</a>&lt;U&gt; for T <span class="where fmt-newline">where<br>&nbsp;&nbsp;&nbsp;&nbsp;U: <a class="trait" href="https://doc.rust-lang.org/nightly/core/convert/trait.From.html" title="trait core::convert::From">From</a>&lt;T&gt;,&nbsp;</span></h3></section></summary><div class="impl-items"><details class="rustdoc-toggle method-toggle" open><summary><section id="method.into" class="method trait-impl has-srclink"><span class="rightside"><span class="since" title="const unstable">const: <a href="https://github.com/rust-lang/rust/issues/88674" title="Tracking issue for const_convert">unstable</a></span> · <a class="srclink" href="https://doc.rust-lang.org/nightly/src/core/convert/mod.rs.html#541">source</a></span><a href="#method.into" class="anchor"></a><h4 class="code-header">pub fn <a href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html#tymethod.into" class="fnname">into</a>(self) -&gt; U</h4></section></summary><div class='docblock'><p>Performs the conversion.</p>
+</div></details></div></details><details class="rustdoc-toggle implementors-toggle" open><summary><section id="impl-IntoBits%3CU%3E" class="impl has-srclink"><span class="rightside"><a class="srclink" href="https://docs.rs/packed_simd_2/0.3.7/x86_64-unknown-linux-gnu/src/packed_simd_2/api/into_bits.rs.html#16-25">source</a></span><a href="#impl-IntoBits%3CU%3E" class="anchor"></a><h3 class="code-header in-band">impl&lt;T, U&gt; <a class="trait" href="https://docs.rs/packed_simd_2/0.3.7/x86_64-unknown-linux-gnu/packed_simd_2/api/into_bits/trait.IntoBits.html" title="trait packed_simd_2::api::into_bits::IntoBits">IntoBits</a>&lt;U&gt; for T <span class="where fmt-newline">where<br>&nbsp;&nbsp;&nbsp;&nbsp;U: <a class="trait" href="https://docs.rs/packed_simd_2/0.3.7/x86_64-unknown-linux-gnu/packed_simd_2/api/into_bits/trait.FromBits.html" title="trait packed_simd_2::api::into_bits::FromBits">FromBits</a>&lt;T&gt;,&nbsp;</span></h3></section></summary><div class="impl-items"><details class="rustdoc-toggle method-toggle" open><summary><section id="method.into_bits" class="method trait-impl has-srclink"><span class="rightside"><a class="srclink" href="https://docs.rs/packed_simd_2/0.3.7/x86_64-unknown-linux-gnu/src/packed_simd_2/api/into_bits.rs.html#21">source</a></span><a href="#method.into_bits" class="anchor"></a><h4 class="code-header">pub fn <a href="https://docs.rs/packed_simd_2/0.3.7/x86_64-unknown-linux-gnu/packed_simd_2/api/into_bits/trait.IntoBits.html#tymethod.into_bits" class="fnname">into_bits</a>(self) -&gt; U</h4></section></summary><div class='docblock'><p>Safe lossless bitwise transmute from <code>self</code> to <code>T</code>.</p>
+</div></details></div></details><details class="rustdoc-toggle implementors-toggle" open><summary><section id="impl-ToString" class="impl has-srclink"><span class="rightside"><a class="srclink" href="https://doc.rust-lang.org/nightly/src/alloc/string.rs.html#2388-2402">source</a></span><a href="#impl-ToString" class="anchor"></a><h3 class="code-header in-band">impl&lt;T&gt; <a class="trait" href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html" title="trait alloc::string::ToString">ToString</a> for T <span class="where fmt-newline">where<br>&nbsp;&nbsp;&nbsp;&nbsp;T: <a class="trait" href="https://doc.rust-lang.org/nightly/core/fmt/trait.Display.html" title="trait core::fmt::Display">Display</a> + ?<a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a>,&nbsp;</span></h3></section></summary><div class="impl-items"><details class="rustdoc-toggle method-toggle" open><summary><section id="method.to_string" class="method trait-impl has-srclink"><span class="rightside"><a class="srclink" href="https://doc.rust-lang.org/nightly/src/alloc/string.rs.html#2394">source</a></span><a href="#method.to_string" class="anchor"></a><h4 class="code-header">pub default fn <a href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to_string" class="fnname">to_string</a>(&amp;self) -&gt; <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a></h4></section></summary><div class='docblock'><p>Converts the given value to a <code>String</code>. <a href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to_string">Read more</a></p>
+</div></details></div></details><details class="rustdoc-toggle implementors-toggle" open><summary><section id="impl-TryFrom%3CU%3E" class="impl has-srclink"><span class="rightside"><a class="srclink" href="https://doc.rust-lang.org/nightly/src/core/convert/mod.rs.html#589-598">source</a></span><a href="#impl-TryFrom%3CU%3E" class="anchor"></a><h3 class="code-header in-band">impl&lt;T, U&gt; <a class="trait" href="https://doc.rust-lang.org/nightly/core/convert/trait.TryFrom.html" title="trait core::convert::TryFrom">TryFrom</a>&lt;U&gt; for T <span class="where fmt-newline">where<br>&nbsp;&nbsp;&nbsp;&nbsp;U: <a class="trait" href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html" title="trait core::convert::Into">Into</a>&lt;T&gt;,&nbsp;</span></h3></section></summary><div class="impl-items"><details class="rustdoc-toggle" open><summary><section id="associatedtype.Error" class="type trait-impl has-srclink"><a href="#associatedtype.Error" class="anchor"></a><h4 class="code-header">type <a href="https://doc.rust-lang.org/nightly/core/convert/trait.TryFrom.html#associatedtype.Error" class="associatedtype">Error</a> = <a class="enum" href="https://doc.rust-lang.org/nightly/core/convert/enum.Infallible.html" title="enum core::convert::Infallible">Infallible</a></h4></section></summary><div class='docblock'><p>The type returned in the event of a conversion error.</p>
+</div></details><details class="rustdoc-toggle method-toggle" open><summary><section id="method.try_from" class="method trait-impl has-srclink"><span class="rightside"><span class="since" title="const unstable">const: <a href="https://github.com/rust-lang/rust/issues/88674" title="Tracking issue for const_convert">unstable</a></span> · <a class="srclink" href="https://doc.rust-lang.org/nightly/src/core/convert/mod.rs.html#595">source</a></span><a href="#method.try_from" class="anchor"></a><h4 class="code-header">pub fn <a href="https://doc.rust-lang.org/nightly/core/convert/trait.TryFrom.html#tymethod.try_from" class="fnname">try_from</a>(value: U) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;T, &lt;T as <a class="trait" href="https://doc.rust-lang.org/nightly/core/convert/trait.TryFrom.html" title="trait core::convert::TryFrom">TryFrom</a>&lt;U&gt;&gt;::<a class="associatedtype" href="https://doc.rust-lang.org/nightly/core/convert/trait.TryFrom.html#associatedtype.Error" title="type core::convert::TryFrom::Error">Error</a>&gt;</h4></section></summary><div class='docblock'><p>Performs the conversion.</p>
+</div></details></div></details><details class="rustdoc-toggle implementors-toggle" open><summary><section id="impl-TryInto%3CU%3E" class="impl has-srclink"><span class="rightside"><a class="srclink" href="https://doc.rust-lang.org/nightly/src/core/convert/mod.rs.html#574-583">source</a></span><a href="#impl-TryInto%3CU%3E" class="anchor"></a><h3 class="code-header in-band">impl&lt;T, U&gt; <a class="trait" href="https://doc.rust-lang.org/nightly/core/convert/trait.TryInto.html" title="trait core::convert::TryInto">TryInto</a>&lt;U&gt; for T <span class="where fmt-newline">where<br>&nbsp;&nbsp;&nbsp;&nbsp;U: <a class="trait" href="https://doc.rust-lang.org/nightly/core/convert/trait.TryFrom.html" title="trait core::convert::TryFrom">TryFrom</a>&lt;T&gt;,&nbsp;</span></h3></section></summary><div class="impl-items"><details class="rustdoc-toggle" open><summary><section id="associatedtype.Error-1" class="type trait-impl has-srclink"><a href="#associatedtype.Error-1" class="anchor"></a><h4 class="code-header">type <a href="https://doc.rust-lang.org/nightly/core/convert/trait.TryInto.html#associatedtype.Error" class="associatedtype">Error</a> = &lt;U as <a class="trait" href="https://doc.rust-lang.org/nightly/core/convert/trait.TryFrom.html" title="trait core::convert::TryFrom">TryFrom</a>&lt;T&gt;&gt;::<a class="associatedtype" href="https://doc.rust-lang.org/nightly/core/convert/trait.TryFrom.html#associatedtype.Error" title="type core::convert::TryFrom::Error">Error</a></h4></section></summary><div class='docblock'><p>The type returned in the event of a conversion error.</p>
+</div></details><details class="rustdoc-toggle method-toggle" open><summary><section id="method.try_into" class="method trait-impl has-srclink"><span class="rightside"><span class="since" title="const unstable">const: <a href="https://github.com/rust-lang/rust/issues/88674" title="Tracking issue for const_convert">unstable</a></span> · <a class="srclink" href="https://doc.rust-lang.org/nightly/src/core/convert/mod.rs.html#580">source</a></span><a href="#method.try_into" class="anchor"></a><h4 class="code-header">pub fn <a href="https://doc.rust-lang.org/nightly/core/convert/trait.TryInto.html#tymethod.try_into" class="fnname">try_into</a>(self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;U, &lt;U as <a class="trait" href="https://doc.rust-lang.org/nightly/core/convert/trait.TryFrom.html" title="trait core::convert::TryFrom">TryFrom</a>&lt;T&gt;&gt;::<a class="associatedtype" href="https://doc.rust-lang.org/nightly/core/convert/trait.TryFrom.html#associatedtype.Error" title="type core::convert::TryFrom::Error">Error</a>&gt;</h4></section></summary><div class='docblock'><p>Performs the conversion.</p>
+</div></details></div></details><details class="rustdoc-toggle implementors-toggle" open><summary><section id="impl-VZip%3CV%3E" class="impl has-srclink"><a href="#impl-VZip%3CV%3E" class="anchor"></a><h3 class="code-header in-band">impl&lt;V, T&gt; VZip&lt;V&gt; for T <span class="where fmt-newline">where<br>&nbsp;&nbsp;&nbsp;&nbsp;V: MultiLane&lt;T&gt;,&nbsp;</span></h3></section></summary><div class="impl-items"><section id="method.vzip" class="method trait-impl has-srclink"><a href="#method.vzip" class="anchor"></a><h4 class="code-header">pub fn <a  class="fnname">vzip</a>(self) -&gt; V</h4></section></div></details></div></section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../" data-current-crate="rand" data-themes="ayu,dark,light" data-resource-suffix="-20220213-1.60.0-nightly-1e12aef3f" data-rustdoc-version="1.60.0-nightly (1e12aef3f 2022-02-13)" ></div>
+</div></body></html>

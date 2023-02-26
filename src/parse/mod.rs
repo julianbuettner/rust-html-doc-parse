@@ -1,12 +1,12 @@
-mod block;
 mod content;
 mod error;
-pub use block::*;
+use std::path::PathBuf;
+
 use scraper::Html;
 
 use crate::DocuPage;
 
-use self::error::HtmlParseError;
+use self::{content::get_main_content, error::HtmlParseError};
 
 // When working with scraper,
 // text elements have a lot of whitespace around them.
@@ -25,9 +25,44 @@ fn minify(html: &str) -> String {
 
 pub fn parse_html(html: &str) -> Result<DocuPage, HtmlParseError> {
     let document = Html::parse_document(minify(html).as_str());
-    if !document.errors.is_empty() {
-        return Err(HtmlParseError::InvalidHtml(document.errors.join("\n")));
+
+    let real_errors = document
+        .errors
+        .iter()
+        .filter(|x| *x != "Bad character")
+        .filter(|x| *x != "Character reference does not end with semicolon")
+        .map(|x| x.to_string())
+        .collect::<Vec<String>>();
+    if !real_errors.is_empty() {
+        return Err(HtmlParseError::InvalidHtml(real_errors.join("\n")));
     }
 
-    todo!()
+    let main_content = get_main_content(&document.root_element())?;
+    Ok(DocuPage {
+        content: crate::DocuPageContent {
+            title: vec![],
+            introduction: main_content,
+            sections: vec![],
+        },
+        meta: crate::DocuPageMeta {
+            documentation_percent: None,
+            location: crate::PageLocation {
+                crate_name: "".to_string(),
+                crate_version: crate::CrateVersion::Latest,
+                source: crate::DocuSource::Local {
+                    filepath: Box::new(PathBuf::new()),
+                },
+            },
+            page_type: crate::DocsType::Enum,
+            references: crate::References {
+                crates_io: None,
+                dependencies: None,
+                owners: None,
+                platforms: None,
+                repository: None,
+                versions: None,
+            },
+            title: "".to_string(),
+        },
+    })
 }

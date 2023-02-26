@@ -13,7 +13,7 @@ pub enum DocuSource {
     // After running `cargo doc`, documentation
     // of already installed packages
     // can be parsed from filesystem
-    Local { filepath: Box<std::path::Path> },
+    Local { filepath: Box<std::path::PathBuf> },
 }
 
 #[derive(Debug, Clone, PartialEq, Eq)]
