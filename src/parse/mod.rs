@@ -4,7 +4,7 @@ use std::path::PathBuf;
 
 use scraper::{ElementRef, Html, Selector};
 
-use crate::{BlockContainer, Content, DocuPage, TextAtomic};
+use crate::{Content, DocuPage};
 
 use self::{
     content::{get_main_content, parse_to_content},

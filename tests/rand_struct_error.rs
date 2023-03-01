@@ -10,7 +10,7 @@ fn fail() {
     // Open the HTML to get a visual.
     // https://docs.rs/rand/0.8.5/rand/struct.Error.html
     let docs = include_str!("resources/docs.rs_rand_0.8.5_rand_struct.Error.html");
-    let mut parsed = rust_html_doc_parse::parse_html(&docs).unwrap();
+    let mut parsed = rust_html_doc_parse::parse_html(docs).unwrap();
 
     // Writing down the entire page sucks.
     // So we limit it to the fist 9 containers.

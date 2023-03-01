@@ -136,7 +136,7 @@ fn is_inline_code(element: &ElementRef) -> bool {
         if element.value().name() == "pre" {
             return true;
         }
-        let parent = element.parent().map(|x| ElementRef::wrap(x)).flatten();
+        let parent = element.parent().and_then(ElementRef::wrap);
         if parent.is_none() {
             return false;
         }
@@ -147,7 +147,7 @@ fn is_inline_code(element: &ElementRef) -> bool {
         return false;
     }
 
-    let all_children_are_flat_text = !element.children().into_iter().any(|x| !x.value().is_text());
+    let all_children_are_flat_text = !element.children().any(|x| !x.value().is_text());
     if all_children_are_flat_text {
         return true;
     }
@@ -195,14 +195,10 @@ fn get_href_walking_up_tree(element: &ElementRef) -> Option<String> {
     if href.is_some() {
         return href;
     }
-    if element.parent().is_none() {
-        return None;
-    }
-    let parent = element.parent().map(|x| ElementRef::wrap(x)).flatten();
-    if parent.is_none() {
-        return None;
-    }
-    return get_href_walking_up_tree(&parent.unwrap());
+    element.parent()?;
+    let parent = element.parent().and_then(ElementRef::wrap);
+    parent?;
+    get_href_walking_up_tree(&parent.unwrap())
 }
 
 fn is_hidden(element: &ElementRef) -> bool {
@@ -224,7 +220,7 @@ fn parse_to_content_recursively(
             Node::Text(t) => children_options.push(Some(RecursiveResult::Atomics(vec![
                 // TODO: Get style by walking up the tree recursively
                 {
-                    let href = get_href_walking_up_tree(&element);
+                    let href = get_href_walking_up_tree(element);
                     TextAtomic::simple(&t.to_string()).with_url(href)
                 },
             ]))),
@@ -241,7 +237,7 @@ fn parse_to_content_recursively(
         Ok(Some(RecursiveResult::Blocks(vec![b])))
     }
 
-    let children: Vec<RecursiveResult> = children_options.into_iter().filter_map(|x| x).collect();
+    let children: Vec<RecursiveResult> = children_options.into_iter().flatten().collect();
 
     let situation = children_to_recursive_children_situation(children)?;
     match situation {

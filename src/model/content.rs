@@ -141,9 +141,9 @@ impl TextAtomicBuilder {
     }
 }
 
-impl Into<TextAtomic> for TextAtomicBuilder {
-    fn into(self) -> TextAtomic {
-        self.build()
+impl From<TextAtomicBuilder> for TextAtomic {
+    fn from(val: TextAtomicBuilder) -> Self {
+        val.build()
     }
 }
 

@@ -1,6 +1,6 @@
 use serde::{Deserialize, Serialize};
 
-use crate::{Content, TextAtomic};
+use crate::{Content};
 
 /// DocuPage is an abstract syntax tree and contains information
 /// as well as meta information about a typical page from docs.rs.
@@ -114,7 +114,7 @@ impl Percentage {
     /// Resolution of 1 / 10_000
     /// Returns Err(()) for out of bound values.
     pub fn from_f32_ratio(r: f32) -> Result<Self, ()> {
-        if r < 0. || r > 1. {
+        if !(0. ..=1.).contains(&r) {
             return Err(());
         }
         Ok(Self {
