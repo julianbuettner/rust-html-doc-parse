@@ -52,22 +52,6 @@ pub enum DocsType {
     Trait,
 }
 
-// Here we have everything that could be considered
-// rendered in a markdown style.
-// On crates.io we have usually the header
-// "Enum html_parser::DomVariant" for example.
-// Then there is some introduction generated from markdown
-// like example code.
-// After that, we have a list of sections for
-// Fields, Implementations, Trait Implementations and so on.
-// Those go here.
-#[derive(Debug, Clone, PartialEq, Eq)]
-pub struct DocuPageContent {
-    pub title: Vec<TextAtomic>,
-    pub introduction: Content,
-    pub sections: Vec<(String, Content)>,
-}
-
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct OwnerReference {
     pub name: String,
@@ -160,6 +144,6 @@ pub struct DocuPageMeta {
 
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct DocuPage {
-    pub content: DocuPageContent,
+    pub content: Content,
     pub meta: DocuPageMeta,
 }

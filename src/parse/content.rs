@@ -263,7 +263,7 @@ fn parse_to_content_recursively(
     }
 }
 
-fn parse_to_content(element: &ElementRef) -> Result<Content, HtmlParseError> {
+pub fn parse_to_content(element: &ElementRef) -> Result<Content, HtmlParseError> {
     match parse_to_content_recursively(element)? {
         Some(RecursiveResult::Atomics(atomics)) => {
             Ok(Content(vec![BlockContainer::Paragraph(atomics)]))

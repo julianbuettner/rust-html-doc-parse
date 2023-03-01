@@ -2,11 +2,14 @@ mod content;
 mod error;
 use std::path::PathBuf;
 
-use scraper::Html;
+use scraper::{ElementRef, Html, Selector};
 
-use crate::DocuPage;
+use crate::{BlockContainer, Content, DocuPage, TextAtomic};
 
-use self::{content::get_main_content, error::HtmlParseError};
+use self::{
+    content::{get_main_content, parse_to_content},
+    error::HtmlParseError,
+};
 
 // When working with scraper,
 // text elements have a lot of whitespace around them.
@@ -21,6 +24,13 @@ fn minify(html: &str) -> String {
     std::str::from_utf8(&minify_html::minify(html.as_bytes(), &config))
         .expect("HTML Minification result is not UTF8")
         .into()
+}
+
+fn get_content_and_sections(html: &Html) -> Result<Content, HtmlParseError> {
+    let selector = Selector::parse("#main-content").unwrap();
+    let content = html.select(&selector).collect::<Vec<ElementRef>>();
+
+    parse_to_content(&content[0])
 }
 
 pub fn parse_html(html: &str) -> Result<DocuPage, HtmlParseError> {
@@ -39,11 +49,7 @@ pub fn parse_html(html: &str) -> Result<DocuPage, HtmlParseError> {
 
     let main_content = get_main_content(&document.root_element())?;
     Ok(DocuPage {
-        content: crate::DocuPageContent {
-            title: vec![],
-            introduction: main_content,
-            sections: vec![],
-        },
+        content: main_content,
         meta: crate::DocuPageMeta {
             documentation_percent: None,
             location: crate::PageLocation {

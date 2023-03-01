@@ -240,5 +240,14 @@ impl std::ops::Add for BlockContainer {
     }
 }
 
+impl std::ops::Add for Content {
+    type Output = Self;
+    fn add(self, mut rhs: Self) -> Self::Output {
+        let mut res = self.0;
+        res.append(&mut rhs.0);
+        Self(res)
+    }
+}
+
 #[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
 pub struct Content(pub Vec<BlockContainer>);
