@@ -1,4 +1,4 @@
-use scraper::{ElementRef, Node, Selector};
+use scraper::{ElementRef, Node};
 use selectors::attr::CaseSensitivity;
 
 use crate::{BlockContainer, Content, Language, TextAtomic, TextAtomicBuilder};
@@ -270,17 +270,4 @@ pub fn parse_to_content(element: &ElementRef) -> Result<Content, HtmlParseError>
             "HTML Element contained no content.".to_string(),
         )),
     }
-}
-
-pub fn get_main_content(element: &ElementRef) -> Result<Content, HtmlParseError> {
-    let selector = Selector::parse("#main-content").unwrap();
-    let content = element.select(&selector).collect::<Vec<ElementRef>>();
-    if content.len() != 1 {
-        return Err(HtmlParseError::ElementCountNotOne(
-            "#main-content",
-            content.len(),
-        ));
-    }
-
-    parse_to_content(&content[0])
 }

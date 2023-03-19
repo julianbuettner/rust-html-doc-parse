@@ -1,8 +1,8 @@
 use pretty_assertions::assert_eq;
 use rust_html_doc_parse::{
-    self, BlockContainer, Content, DocsType, DocuPage, DocuPageMeta, References, TextAtomic, TextAtomicBuilder,
+    self, BlockContainer, Content, DocsType, DocuPage, DocuPageMeta, References, TextAtomic,
+    TextAtomicBuilder,
 };
-
 
 #[test]
 fn fail() {

@@ -2,7 +2,6 @@ mod content;
 mod error;
 mod meta;
 
-
 use scraper::{ElementRef, Html, Selector};
 
 use crate::{Content, DocuPage};
