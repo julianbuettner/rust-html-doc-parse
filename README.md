@@ -1,7 +1,7 @@
 # Rust Html Doc Parse
 
 Parser for documentation you see on [docs.rs](https://docs.rs/).  
-Generates an abstract syntax tree of the document ([Title(x), Section(x), ...])
+Generates an abstract syntax tree of the document (`vec![Title(x), Section(x), ...]`)
 and parses some meta information (authors, repository links, version, coverage, ...).
 
 One big html in, one big struct out, parsed by best effort, because
