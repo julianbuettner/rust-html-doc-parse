@@ -4,7 +4,7 @@ use crate::{DocsType, DocuPageMeta, References};
 
 use super::error::HtmlParseError;
 
-fn get_references(root: &ElementRef) -> Result<References, HtmlParseError> {
+fn get_references(_root: &ElementRef) -> Result<References, HtmlParseError> {
     Ok(References {
         crates_io: None,
         dependencies: None,

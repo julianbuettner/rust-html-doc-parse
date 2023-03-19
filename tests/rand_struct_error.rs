@@ -1,9 +1,8 @@
 use pretty_assertions::assert_eq;
 use rust_html_doc_parse::{
-    self, BlockContainer, Content, CrateVersion, DocsType, DocuPage, DocuPageMeta, DocuSource,
-    PageLocation, Percentage, References, TextAtomic, TextAtomicBuilder,
+    self, BlockContainer, Content, DocsType, DocuPage, DocuPageMeta, References, TextAtomic, TextAtomicBuilder,
 };
-use std::path::PathBuf;
+
 
 #[test]
 fn fail() {
