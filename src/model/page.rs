@@ -1,6 +1,6 @@
 use serde::{Deserialize, Serialize};
 
-use crate::{Content};
+use crate::Content;
 
 /// DocuPage is an abstract syntax tree and contains information
 /// as well as meta information about a typical page from docs.rs.
@@ -136,7 +136,6 @@ impl Percentage {
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct DocuPageMeta {
     pub documentation_percent: Option<Percentage>,
-    pub location: PageLocation,
     pub page_type: DocsType,
     pub references: References,
     pub title: String,

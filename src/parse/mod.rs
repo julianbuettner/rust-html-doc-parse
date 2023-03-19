@@ -1,15 +1,13 @@
 mod content;
 mod error;
+mod meta;
 use std::path::PathBuf;
 
 use scraper::{ElementRef, Html, Selector};
 
 use crate::{Content, DocuPage};
 
-use self::{
-    content::{get_main_content, parse_to_content},
-    error::HtmlParseError,
-};
+use self::{content::parse_to_content, error::HtmlParseError, meta::parse_meta_from_html};
 
 // When working with scraper,
 // text elements have a lot of whitespace around them.
@@ -26,10 +24,15 @@ fn minify(html: &str) -> String {
         .into()
 }
 
-fn get_content_and_sections(html: &Html) -> Result<Content, HtmlParseError> {
+fn get_main_content(element: &ElementRef) -> Result<Content, HtmlParseError> {
     let selector = Selector::parse("#main-content").unwrap();
-    let content = html.select(&selector).collect::<Vec<ElementRef>>();
-
+    let content = element.select(&selector).collect::<Vec<ElementRef>>();
+    if content.len() != 1 {
+        return Err(HtmlParseError::ElementCountNotOne(
+            "#main-content",
+            content.len(),
+        ));
+    }
     parse_to_content(&content[0])
 }
 
@@ -50,25 +53,6 @@ pub fn parse_html(html: &str) -> Result<DocuPage, HtmlParseError> {
     let main_content = get_main_content(&document.root_element())?;
     Ok(DocuPage {
         content: main_content,
-        meta: crate::DocuPageMeta {
-            documentation_percent: None,
-            location: crate::PageLocation {
-                crate_name: "".to_string(),
-                crate_version: crate::CrateVersion::Latest,
-                source: crate::DocuSource::Local {
-                    filepath: Box::new(PathBuf::new()),
-                },
-            },
-            page_type: crate::DocsType::Enum,
-            references: crate::References {
-                crates_io: None,
-                dependencies: None,
-                owners: None,
-                platforms: None,
-                repository: None,
-                versions: None,
-            },
-            title: "".to_string(),
-        },
+        meta: parse_meta_from_html(&document)?,
     })
 }

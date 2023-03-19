@@ -1,7 +1,7 @@
 use pretty_assertions::assert_eq;
 use rust_html_doc_parse::{
     self, BlockContainer, Content, CrateVersion, DocsType, DocuPage, DocuPageMeta, DocuSource,
-    PageLocation, References, TextAtomic, TextAtomicBuilder,
+    PageLocation, Percentage, References, TextAtomic, TextAtomicBuilder,
 };
 use std::path::PathBuf;
 
@@ -12,7 +12,7 @@ fn fail() {
     let docs = include_str!("resources/docs.rs_rand_0.8.5_rand_struct.Error.html");
     let mut parsed = rust_html_doc_parse::parse_html(docs).unwrap();
 
-    // Writing down the entire page sucks.
+    // Writing down the entire page here sucks.
     // So we limit it to the fist 9 containers.
     parsed.content.0.truncate(9);
 
@@ -65,15 +65,8 @@ fn fail() {
             ]),
         ]),
         meta: DocuPageMeta {
-            documentation_percent: None,
-            location: PageLocation {
-                crate_name: "".to_string(),
-                crate_version: CrateVersion::Latest,
-                source: DocuSource::Local {
-                    filepath: Box::new(PathBuf::new()),
-                },
-            },
-            page_type: DocsType::Enum,
+            documentation_percent: None, //Some(Percentage::from_f32_ratio(1.).unwrap()),
+            page_type: DocsType::Struct,
             references: References {
                 crates_io: None,
                 dependencies: None,
@@ -82,7 +75,7 @@ fn fail() {
                 repository: None,
                 versions: None,
             },
-            title: "".to_string(),
+            title: "Struct rand::Error".to_string(),
         },
     };
     assert_eq!(parsed.meta, expected.meta);
